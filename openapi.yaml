@@ -1,0 +1,5915 @@
+openapi: 3.0.3
+info:
+  title: 'Ikenas Gestion API'
+  description: 'OpenAPI documentation generated from routes and controllers with detected request inputs.'
+  version: 1.0.0
+servers:
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+  
+security:
+  - BearerAuth: []
+paths:
+  /assignments:
+    get:
+      summary: 'Get assignments'
+      operationId: assignments_list
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAssignments
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+    post:
+      summary: 'Create assignments'
+      operationId: assignments_create
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createAssignment
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {files: {type: array, description: 'files field.', items: {type: string, format: binary}}, classe: {type: string, description: 'classe field.'}, deadline: {type: string, description: 'deadline field.'}, description: {type: string, description: 'Description text.'}, subject: {type: string, description: 'subject field.'}, title: {type: string, description: 'Title value.'}}
+  '/assignments/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete assignments id'
+      operationId: assignments_id_delete
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteAssignment
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get assignments id'
+      operationId: assignments_id_list
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAssignment
+      security:
+        -
+          BearerAuth: []
+  '/assignments/{id}/submissions':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    get:
+      summary: 'Get assignments id submissions'
+      operationId: assignments_id_submissions_list
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSubmissions
+      security:
+        -
+          BearerAuth: []
+  '/assignments/{id}/submissions-status':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    get:
+      summary: 'Get assignments id submissions-status'
+      operationId: assignments_id_submissions_status_list
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSubmissionStatus
+      security:
+        -
+          BearerAuth: []
+  '/assignments/{id}/submit':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create assignments id submit'
+      operationId: assignments_id_submit_create
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: submitAssignment
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {files: {type: array, description: 'files field.', items: {type: string, format: binary}}, text: {type: string, description: 'text field.'}}
+  /attendances:
+    get:
+      summary: 'Get attendances'
+      operationId: attendances_list
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAttendances
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: approvalStatus
+          required: false
+          description: 'Query parameter: approvalStatus.'
+          schema:
+            type: string
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+        -
+          in: query
+          name: includePresent
+          required: false
+          description: 'Query parameter: includePresent.'
+          schema:
+            type: string
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: page
+          required: false
+          description: 'Page number for paginated results.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: schedule
+          required: false
+          description: 'Query parameter: schedule.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+    post:
+      summary: 'Create attendances'
+      operationId: attendances_create
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createAttendance
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, date: {type: string, description: 'Date value.'}, reason: {type: string, description: 'reason field.'}, status: {type: string, description: 'status field.'}, student: {type: string, description: 'student field.'}, subject: {type: string, description: 'subject field.'}}
+  '/attendances/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update attendances id'
+      operationId: attendances_id_update
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateAttendance
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {reason: {type: string, description: 'reason field.'}, status: {type: string, description: 'status field.'}}
+  '/attendances/{id}/approve':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update attendances id approve'
+      operationId: attendances_id_approve_update
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: approveAttendance
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+        -
+          in: query
+          name: from
+          required: false
+          description: 'Start date filter.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: to
+          required: false
+          description: 'End date filter.'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {absences: {type: string, description: 'absences field.'}, approvalStatus: {type: string, description: 'approvalStatus field.'}, classe: {type: string, description: 'classe field.'}, date: {type: string, description: 'Date value.'}, ids: {type: string, description: 'ids field.'}, reason: {type: string, description: 'reason field.'}, schedule: {type: string, description: 'schedule field.'}, status: {type: string, description: 'status field.'}, subject: {type: string, description: 'subject field.'}}
+  '/attendances/{id}/justify':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update attendances id justify'
+      operationId: attendances_id_justify_update
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: justifyAttendance
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {attachment: {type: string, format: binary, description: 'attachment field.'}, reason: {type: string, description: 'reason field.'}}
+  /attendances/approve-bulk:
+    put:
+      summary: 'Update attendances approve-bulk'
+      operationId: attendances_approve_bulk_update
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: approveBulk
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {approvalStatus: {type: string, description: 'approvalStatus field.'}, ids: {type: string, description: 'ids field.'}}
+  /attendances/bulk:
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create attendances bulk'
+      operationId: attendances_bulk_create
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createBulkAttendance
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+        -
+          in: query
+          name: from
+          required: false
+          description: 'Start date filter.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: to
+          required: false
+          description: 'End date filter.'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {absences: {type: string, description: 'absences field.'}, approvalStatus: {type: string, description: 'approvalStatus field.'}, classe: {type: string, description: 'classe field.'}, date: {type: string, description: 'Date value.'}, ids: {type: string, description: 'ids field.'}, reason: {type: string, description: 'reason field.'}, schedule: {type: string, description: 'schedule field.'}, subject: {type: string, description: 'subject field.'}}
+  /attendances/class-schedule:
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    get:
+      summary: 'Get attendances class-schedule'
+      operationId: attendances_class_schedule_list
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getClassScheduleForDate
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+        -
+          in: query
+          name: from
+          required: false
+          description: 'Start date filter.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: to
+          required: false
+          description: 'End date filter.'
+          schema:
+            type: string
+  /attendances/daily-report:
+    get:
+      summary: 'Get attendances daily-report'
+      operationId: attendances_daily_report_list
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getDailyReport
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /attendances/me:
+    get:
+      summary: 'Get attendances me'
+      operationId: attendances_me_list
+      tags:
+        - Attendance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyAttendances
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: from
+          required: false
+          description: 'Start date filter.'
+          schema:
+            type: string
+        -
+          in: query
+          name: to
+          required: false
+          description: 'End date filter.'
+          schema:
+            type: string
+  /auth/login:
+    post:
+      summary: 'Create auth login'
+      operationId: auth_login_create
+      tags:
+        - Auth
+      security: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: login
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: 'Email address.'
+                firstName:
+                  type: string
+                  description: 'Name value.'
+                lastName:
+                  type: string
+                  description: 'Name value.'
+                password:
+                  type: string
+                  description: 'Password value.'
+                phone:
+                  type: string
+                  description: 'Phone number.'
+                role:
+                  type: string
+                  description: 'role field.'
+  /auth/me:
+    get:
+      summary: 'Get auth me'
+      operationId: auth_me_list
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMe
+      security:
+        -
+          BearerAuth: []
+  /auth/register:
+    post:
+      summary: 'Create auth register'
+      operationId: auth_register_create
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: register
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+              properties:
+                currentPassword:
+                  type: string
+                  description: 'Password value.'
+                email:
+                  type: string
+                  description: 'Email address.'
+                firstName:
+                  type: string
+                  description: 'Name value.'
+                lastName:
+                  type: string
+                  description: 'Name value.'
+                newPassword:
+                  type: string
+                  description: 'Password value.'
+                password:
+                  type: string
+                  description: 'Password value.'
+                phone:
+                  type: string
+                  description: 'Phone number.'
+                role:
+                  type: string
+                  description: 'role field.'
+  /auth/update-password:
+    put:
+      summary: 'Update auth update-password'
+      operationId: auth_update_password_update
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updatePassword
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currentPassword
+                - newPassword
+              properties:
+                currentPassword:
+                  type: string
+                  description: 'Password value.'
+                newPassword:
+                  type: string
+                  description: 'Password value.'
+  /classes:
+    get:
+      summary: 'Get classes'
+      operationId: classes_list
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getClasses
+      security:
+        -
+          BearerAuth: []
+    post:
+      summary: 'Create classes'
+      operationId: classes_create
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createClass
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {baseName: {type: string, description: 'Name value.'}, capacity: {type: string, description: 'capacity field.'}, description: {type: string, description: 'Description text.'}, level: {type: string, description: 'level field.'}, numberOfSections: {type: string, description: 'numberOfSections field.'}}
+  '/classes/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete classes id'
+      operationId: classes_id_delete
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteClass
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get classes id'
+      operationId: classes_id_list
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getClass
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update classes id'
+      operationId: classes_id_update
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateClass
+      security:
+        -
+          BearerAuth: []
+  /classes/add-sections:
+    post:
+      summary: 'Create classes add-sections'
+      operationId: classes_add_sections_create
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: addSections
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {baseName: {type: string, description: 'Name value.'}, count: {type: integer, description: 'count field.'}}
+  '/classes/group/{baseName}':
+    parameters:
+      -
+        in: path
+        name: baseName
+        required: true
+        description: 'Unique identifier for baseName.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete classes group baseName'
+      operationId: classes_group_basename_delete
+      tags:
+        - Classes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteClassGroup
+      security:
+        -
+          BearerAuth: []
+  /dashboard/stats:
+    get:
+      summary: 'Get dashboard stats'
+      operationId: dashboard_stats_list
+      tags:
+        - Dashboard
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStats
+      security:
+        -
+          BearerAuth: []
+  /events:
+    get:
+      summary: 'Get events'
+      operationId: events_list
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getEvents
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: type
+          required: false
+          description: 'Query parameter: type.'
+          schema:
+            type: string
+        -
+          in: query
+          name: upcoming
+          required: false
+          description: 'Query parameter: upcoming.'
+          schema:
+            type: string
+    post:
+      summary: 'Create events'
+      operationId: events_create
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createEvent
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {createdBy: {type: string, description: 'createdBy field.'}, targetAudience: {type: string, description: 'targetAudience field.'}}
+  '/events/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete events id'
+      operationId: events_id_delete
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteEvent
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get events id'
+      operationId: events_id_list
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getEvent
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update events id'
+      operationId: events_id_update
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateEvent
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {targetAudience: {type: string, description: 'targetAudience field.'}}
+  '/events/{id}/respond':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update events id respond'
+      operationId: events_id_respond_update
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: respondToEvent
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {status: {type: string, description: 'status field.'}}
+  /exams:
+    get:
+      summary: 'Get exams'
+      operationId: exams_list
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getExams
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: upcoming
+          required: false
+          description: 'Query parameter: upcoming.'
+          schema:
+            type: string
+    post:
+      summary: 'Create exams'
+      operationId: exams_create
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createExam
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, componentsTemplate: {type: string, description: 'componentsTemplate field.'}, date: {type: string, description: 'Date value.'}, description: {type: string, description: 'Description text.'}, endTime: {type: string, description: 'endTime field.'}, maxScore: {type: string, description: 'maxScore field.'}, room: {type: string, description: 'room field.'}, semester: {type: string, description: 'semester field.'}, startTime: {type: string, description: 'startTime field.'}, subject: {type: string, description: 'subject field.'}, teacher: {type: string, description: 'teacher field.'}, title: {type: string, description: 'Title value.'}, type: {type: string, description: 'type field.'}}
+  '/exams/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete exams id'
+      operationId: exams_id_delete
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteExam
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get exams id'
+      operationId: exams_id_list
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getExam
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update exams id'
+      operationId: exams_id_update
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateExam
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, componentsTemplate: {type: string, description: 'componentsTemplate field.'}, maxScore: {type: string, description: 'maxScore field.'}, subject: {type: string, description: 'subject field.'}}
+  '/exams/{id}/results':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    get:
+      summary: 'Get exams id results'
+      operationId: exams_id_results_list
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getResults
+      security:
+        -
+          BearerAuth: []
+    post:
+      summary: 'Create exams id results'
+      operationId: exams_id_results_create
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: saveResults
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {results: {type: string, description: 'results field.'}}
+  /exams/my-results:
+    get:
+      summary: 'Get exams my-results'
+      operationId: exams_my_results_list
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyResults
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+  /exams/results-template:
+    get:
+      summary: 'Get exams results-template'
+      operationId: exams_results_template_list
+      tags:
+        - Exams
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getResultsTemplate
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: examId
+          required: false
+          description: 'Query parameter: examId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /health:
+    get:
+      summary: 'Get health'
+      operationId: health_list
+      tags:
+        - System
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: null
+  /leave-requests:
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    get:
+      summary: 'Get leave-requests'
+      operationId: leave_requests_list
+      tags:
+        - LeaveRequests
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAllLeaveRequests
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: requestType
+          required: false
+          description: 'Query parameter: requestType.'
+          schema:
+            type: string
+        -
+          in: query
+          name: status
+          required: false
+          description: 'Query parameter: status.'
+          schema:
+            type: string
+    post:
+      summary: 'Create leave-requests'
+      operationId: leave_requests_create
+      tags:
+        - LeaveRequests
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createLeaveRequest
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: requestType
+          required: false
+          description: 'Query parameter: requestType.'
+          schema:
+            type: string
+        -
+          in: query
+          name: status
+          required: false
+          description: 'Query parameter: status.'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {attachments: {type: array, description: 'attachments field.', items: {type: string, format: binary}}, adminComment: {type: string, description: 'adminComment field.'}, endDate: {type: string, description: 'Date value.'}, reason: {type: string, description: 'reason field.'}, requestType: {type: string, description: 'requestType field.'}, returnDate: {type: string, description: 'Date value.'}, startDate: {type: string, description: 'Date value.'}, status: {type: string, description: 'status field.'}, type: {type: string, description: 'type field.'}}
+  '/leave-requests/{id}/status':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update leave-requests id status'
+      operationId: leave_requests_id_status_update
+      tags:
+        - LeaveRequests
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateLeaveStatus
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {adminComment: {type: string, description: 'adminComment field.'}, status: {type: string, description: 'status field.'}}
+  /leave-requests/my:
+    get:
+      summary: 'Get leave-requests my'
+      operationId: leave_requests_my_list
+      tags:
+        - LeaveRequests
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyLeaveRequests
+      security:
+        -
+          BearerAuth: []
+  /messages:
+    get:
+      summary: 'Get messages'
+      operationId: messages_list
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMessages
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: page
+          required: false
+          description: 'Page number for paginated results.'
+          schema:
+            type: integer
+    post:
+      summary: 'Create messages'
+      operationId: messages_create
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: sendMessage
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - recipientType
+              properties:
+                attachments:
+                  type: array
+                  description: 'attachments field (files). At least one attachment OR `content` is required.'
+                  items:
+                    type: string
+                    format: binary
+                allowReply:
+                  type: string
+                  description: 'allowReply field.'
+                content:
+                  type: string
+                  description: 'content field. Required if no attachments are provided.'
+                recipientType:
+                  type: string
+                  description: 'recipientType field. One of: broadcast, class, individual.'
+                targetClass:
+                  type: string
+                  description: 'targetClass field.'
+                targetClasses:
+                  type: string
+                  description: 'targetClasses field.'
+                targetUser:
+                  type: string
+                  description: 'targetUser field.'
+                targetUsers:
+                  type: string
+                  description: 'targetUsers field.'
+  '/messages/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete messages id'
+      operationId: messages_id_delete
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteMessage
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update messages id'
+      operationId: messages_id_update
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateMessage
+      security:
+        -
+          BearerAuth: []
+  '/messages/{id}/read':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update messages id read'
+      operationId: messages_id_read_update
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: markAsRead
+      security:
+        -
+          BearerAuth: []
+  '/messages/{id}/reply':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create messages id reply'
+      operationId: messages_id_reply_create
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: replyToMessage
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {attachments: {type: array, description: 'attachments field.', items: {type: string, format: binary}}}
+  /messages/recipients:
+    get:
+      summary: 'Get messages recipients'
+      operationId: messages_recipients_list
+      tags:
+        - Messages
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getRecipients
+      security:
+        -
+          BearerAuth: []
+  /news:
+    get:
+      summary: 'Get news'
+      operationId: news_list
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getPosts
+      security:
+        -
+          BearerAuth: []
+    post:
+      summary: 'Create news'
+      operationId: news_create
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createPost
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {image: {type: string, format: binary, description: 'image field.'}, content: {type: string, description: 'content field.'}}
+  '/news/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete news id'
+      operationId: news_id_delete
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deletePost
+      security:
+        -
+          BearerAuth: []
+  '/news/{id}/comments':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create news id comments'
+      operationId: news_id_comments_create
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: addComment
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {content: {type: string, description: 'content field.'}}
+  '/news/{id}/comments/{commentId}':
+    parameters:
+      -
+        in: path
+        name: commentId
+        required: true
+        description: 'Unique identifier for comment.'
+        schema:
+          type: string
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete news id comments commentId'
+      operationId: news_id_comments_commentid_delete
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteComment
+      security:
+        -
+          BearerAuth: []
+  '/news/{id}/like':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create news id like'
+      operationId: news_id_like_create
+      tags:
+        - News
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: toggleLike
+      security:
+        -
+          BearerAuth: []
+  '/notes/{sheetId}/visibility':
+    parameters:
+      -
+        in: path
+        name: sheetId
+        required: true
+        description: 'Unique identifier for sheet.'
+        schema:
+          type: string
+    put:
+      summary: 'Update notes sheetId visibility'
+      operationId: notes_sheetid_visibility_update
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: toggleSheetVisibility
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {visible: {type: boolean, description: 'visible field.'}}
+  /notes/class-ranking:
+    get:
+      summary: 'Get notes class-ranking'
+      operationId: notes_class_ranking_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getClassRanking
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: componentKey
+          required: false
+          description: 'Query parameter: componentKey.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /notes/components-template:
+    get:
+      summary: 'Get notes components-template'
+      operationId: notes_components_template_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getComponentsTemplate
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /notes/export/excel:
+    get:
+      summary: 'Get notes export excel'
+      operationId: notes_export_excel_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: exportSheetExcel
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: sheetId
+          required: false
+          description: 'Query parameter: sheetId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /notes/my-results:
+    get:
+      summary: 'Get notes my-results'
+      operationId: notes_my_results_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyResults
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+  /notes/results:
+    parameters:
+      -
+        in: path
+        name: sheetId
+        required: true
+        description: 'Unique identifier for sheet.'
+        schema:
+          type: string
+    get:
+      summary: 'Get notes results'
+      operationId: notes_results_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getResults
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: sheetId
+          required: false
+          description: 'Query parameter: sheetId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+  /notes/save:
+    post:
+      summary: 'Create notes save'
+      operationId: notes_save_create
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: saveSheetResults
+      security:
+        -
+          BearerAuth: []
+  /notes/sheets:
+    get:
+      summary: 'Get notes sheets'
+      operationId: notes_sheets_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSheets
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: type
+          required: false
+          description: 'Query parameter: type.'
+          schema:
+            type: string
+  /notes/simple/save:
+    post:
+      summary: 'Create notes simple save'
+      operationId: notes_simple_save_create
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: saveSimpleResults
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, results: {type: string, description: 'results field.'}, semester: {type: string, description: 'semester field.'}, sheetId: {type: string, description: 'sheetId field.'}, subject: {type: string, description: 'subject field.'}, title: {type: string, description: 'Title value.'}}
+  /notes/simple/template:
+    get:
+      summary: 'Get notes simple template'
+      operationId: notes_simple_template_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSimpleTemplate
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: title
+          required: false
+          description: 'Query parameter: title.'
+          schema:
+            type: string
+  /notes/template:
+    get:
+      summary: 'Get notes template'
+      operationId: notes_template_list
+      tags:
+        - Notes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTemplate
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: examId
+          required: false
+          description: 'Query parameter: examId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: semester
+          required: false
+          description: 'Query parameter: semester.'
+          schema:
+            type: string
+        -
+          in: query
+          name: sheetId
+          required: false
+          description: 'Query parameter: sheetId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: subject
+          required: false
+          description: 'Query parameter: subject.'
+          schema:
+            type: string
+        -
+          in: query
+          name: type
+          required: false
+          description: 'Query parameter: type.'
+          schema:
+            type: string
+  /notifications:
+    get:
+      summary: 'Get notifications'
+      operationId: notifications_list
+      tags:
+        - Notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyNotifications
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: unread
+          required: false
+          description: 'Query parameter: unread.'
+          schema:
+            type: string
+  /notifications/read:
+    put:
+      summary: 'Update notifications read'
+      operationId: notifications_read_update
+      tags:
+        - Notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: markAsRead
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {ids: {type: string, description: 'ids field.'}}
+  /notifications/unread-count:
+    get:
+      summary: 'Get notifications unread-count'
+      operationId: notifications_unread_count_list
+      tags:
+        - Notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getUnreadCount
+      security:
+        -
+          BearerAuth: []
+  /payments/admin/analytics/class-month-status:
+    get:
+      summary: 'Get payments admin analytics class-month-status'
+      operationId: payments_admin_analytics_class_month_status_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAdminClassMonthlyStatus
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classId
+          required: false
+          description: 'Query parameter: classId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: month
+          required: false
+          description: 'Query parameter: month.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: transportOnly
+          required: false
+          description: 'Query parameter: transportOnly.'
+          schema:
+            type: string
+        -
+          in: query
+          name: year
+          required: false
+          description: 'Query parameter: year.'
+          schema:
+            type: integer
+  /payments/admin/analytics/class-month-status/notify-late:
+    post:
+      summary: 'Create payments admin analytics class-month-status notify-late'
+      operationId: payments_admin_analytics_class_month_status_notify_late_create
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: sendAdminClassMonthlyLateNotifications
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classId: {type: string, description: 'classId field.'}, month: {type: integer, description: 'month field.'}, transportOnly: {type: string, description: 'transportOnly field.'}, year: {type: integer, description: 'year field.'}}
+  /payments/admin/analytics/forecast:
+    get:
+      summary: 'Get payments admin analytics forecast'
+      operationId: payments_admin_analytics_forecast_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getFinancialForecast
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: year
+          required: false
+          description: 'Query parameter: year.'
+          schema:
+            type: integer
+  /payments/admin/analytics/overview:
+    get:
+      summary: 'Get payments admin analytics overview'
+      operationId: payments_admin_analytics_overview_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getAdminFinancialAnalytics
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: month
+          required: false
+          description: 'Query parameter: month.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: year
+          required: false
+          description: 'Query parameter: year.'
+          schema:
+            type: integer
+  '/payments/admin/invoices/{paymentId}/download':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments admin invoices paymentId download'
+      operationId: payments_admin_invoices_paymentid_download_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: downloadInvoice
+      security:
+        -
+          BearerAuth: []
+  /payments/admin/notifications/due-reminders:
+    post:
+      summary: 'Create payments admin notifications due-reminders'
+      operationId: payments_admin_notifications_due_reminders_create
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: dispatchDueReminders
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: daysBefore
+          required: false
+          description: 'Query parameter: daysBefore.'
+          schema:
+            type: string
+  '/payments/admin/students/{studentId}/debts':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments admin students studentId debts'
+      operationId: payments_admin_students_studentid_debts_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudentDebts
+      security:
+        -
+          BearerAuth: []
+  '/payments/admin/students/{studentId}/dues':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    post:
+      summary: 'Create payments admin students studentId dues'
+      operationId: payments_admin_students_studentid_dues_create
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: generateStudentDue
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {amount: {type: string, description: 'amount field.'}, billingCycle: {type: string, description: 'billingCycle field.'}, discount: {type: string, description: 'discount field.'}, dueDate: {type: string, description: 'Date value.'}, feeType: {type: string, description: 'feeType field.'}, label: {type: string, description: 'label field.'}, periodMonth: {type: string, description: 'periodMonth field.'}, periodQuarter: {type: string, description: 'periodQuarter field.'}, periodYear: {type: string, description: 'periodYear field.'}}
+  '/payments/admin/students/{studentId}/tariff-suggestion':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments admin students studentId tariff-suggestion'
+      operationId: payments_admin_students_studentid_tariff_suggestion_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudentTariffSuggestion
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: billingCycle
+          required: false
+          description: 'Query parameter: billingCycle.'
+          schema:
+            type: string
+        -
+          in: query
+          name: feeType
+          required: false
+          description: 'Query parameter: feeType.'
+          schema:
+            type: string
+  /payments/admin/tariffs:
+    get:
+      summary: 'Get payments admin tariffs'
+      operationId: payments_admin_tariffs_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTariffs
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: billingCycle
+          required: false
+          description: 'Query parameter: billingCycle.'
+          schema:
+            type: string
+        -
+          in: query
+          name: feeType
+          required: false
+          description: 'Query parameter: feeType.'
+          schema:
+            type: string
+        -
+          in: query
+          name: isActive
+          required: false
+          description: 'Query parameter: isActive.'
+          schema:
+            type: string
+        -
+          in: query
+          name: level
+          required: false
+          description: 'Query parameter: level.'
+          schema:
+            type: string
+    post:
+      summary: 'Create payments admin tariffs'
+      operationId: payments_admin_tariffs_create
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createTariff
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {amount: {type: string, description: 'amount field.'}, billingCycle: {type: string, description: 'billingCycle field.'}, feeType: {type: string, description: 'feeType field.'}}
+  '/payments/admin/tariffs/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete payments admin tariffs id'
+      operationId: payments_admin_tariffs_id_delete
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteTariff
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update payments admin tariffs id'
+      operationId: payments_admin_tariffs_id_update
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateTariff
+      security:
+        -
+          BearerAuth: []
+  /payments/cashier/dashboard:
+    get:
+      summary: 'Get payments cashier dashboard'
+      operationId: payments_cashier_dashboard_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getCashierDashboard
+      security:
+        -
+          BearerAuth: []
+  '/payments/cashier/payments/{paymentId}/collect':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    post:
+      summary: 'Create payments cashier payments paymentId collect'
+      operationId: payments_cashier_payments_paymentid_collect_create
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: collectPayment
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {amount: {type: string, description: 'amount field.'}, method: {type: string, description: 'method field.'}, note: {type: string, description: 'note field.'}, paymentDate: {type: string, description: 'Date value.'}, reference: {type: string, description: 'reference field.'}}
+  '/payments/cashier/receipts/{paymentId}/download':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments cashier receipts paymentId download'
+      operationId: payments_cashier_receipts_paymentid_download_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: downloadReceipt
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: paymentIndex
+          required: false
+          description: 'Query parameter: paymentIndex.'
+          schema:
+            type: string
+  /payments/cashier/students/search:
+    get:
+      summary: 'Get payments cashier students search'
+      operationId: payments_cashier_students_search_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: searchStudentsForCashier
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classId
+          required: false
+          description: 'Query parameter: classId.'
+          schema:
+            type: string
+        -
+          in: query
+          name: q
+          required: false
+          description: 'Search term used to filter results.'
+          schema:
+            type: string
+  '/payments/student/me/invoices/{paymentId}':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments student me invoices paymentId'
+      operationId: payments_student_me_invoices_paymentid_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudentInvoiceDetail
+      security:
+        -
+          BearerAuth: []
+  '/payments/student/me/invoices/{paymentId}/download':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments student me invoices paymentId download'
+      operationId: payments_student_me_invoices_paymentid_download_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: downloadInvoice
+      security:
+        -
+          BearerAuth: []
+  '/payments/student/me/receipts/{paymentId}/download':
+    parameters:
+      -
+        in: path
+        name: paymentId
+        required: true
+        description: 'Unique identifier for payment.'
+        schema:
+          type: string
+    get:
+      summary: 'Get payments student me receipts paymentId download'
+      operationId: payments_student_me_receipts_paymentid_download_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: downloadReceipt
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: paymentIndex
+          required: false
+          description: 'Query parameter: paymentIndex.'
+          schema:
+            type: string
+  /payments/student/me/space:
+    get:
+      summary: 'Get payments student me space'
+      operationId: payments_student_me_space_list
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudentPaymentSpace
+      security:
+        -
+          BearerAuth: []
+  /schedules:
+    get:
+      summary: 'Get schedules'
+      operationId: schedules_list
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSchedules
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: day
+          required: false
+          description: 'Query parameter: day.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: teacher
+          required: false
+          description: 'Query parameter: teacher.'
+          schema:
+            type: string
+    post:
+      summary: 'Create schedules'
+      operationId: schedules_create
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createSchedule
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, day: {type: integer, description: 'day field.'}, endTime: {type: string, description: 'endTime field.'}, room: {type: string, description: 'room field.'}, startTime: {type: string, description: 'startTime field.'}, teacher: {type: string, description: 'teacher field.'}}
+  '/schedules/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete schedules id'
+      operationId: schedules_id_delete
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteSchedule
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update schedules id'
+      operationId: schedules_id_update
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateSchedule
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classe: {type: string, description: 'classe field.'}, day: {type: integer, description: 'day field.'}, endTime: {type: string, description: 'endTime field.'}, room: {type: string, description: 'room field.'}, startTime: {type: string, description: 'startTime field.'}, teacher: {type: string, description: 'teacher field.'}}
+  /schedules/my-schedule:
+    get:
+      summary: 'Get schedules my-schedule'
+      operationId: schedules_my_schedule_list
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyScheduleTeacher
+      security:
+        -
+          BearerAuth: []
+  /schedules/my-schedule-student:
+    get:
+      summary: 'Get schedules my-schedule-student'
+      operationId: schedules_my_schedule_student_list
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyScheduleStudent
+      security:
+        -
+          BearerAuth: []
+  /schedules/settings:
+    get:
+      summary: 'Get schedules settings'
+      operationId: schedules_settings_list
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getScheduleSettings
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update schedules settings'
+      operationId: schedules_settings_update
+      tags:
+        - Schedule
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateScheduleSettings
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {defaultConfig: {type: string, description: 'defaultConfig field.'}, exceptions: {type: string, description: 'exceptions field.'}}
+  /sections:
+    get:
+      summary: 'Get sections'
+      operationId: sections_list
+      tags:
+        - Sections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSections
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+    post:
+      summary: 'Create sections'
+      operationId: sections_create
+      tags:
+        - Sections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createSection
+      security:
+        -
+          BearerAuth: []
+  '/sections/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete sections id'
+      operationId: sections_id_delete
+      tags:
+        - Sections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteSection
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get sections id'
+      operationId: sections_id_list
+      tags:
+        - Sections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSection
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update sections id'
+      operationId: sections_id_update
+      tags:
+        - Sections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateSection
+      security:
+        -
+          BearerAuth: []
+  /settings:
+    get:
+      summary: 'Get settings'
+      operationId: settings_list
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSettings
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update settings'
+      operationId: settings_update
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateSettings
+      security:
+        -
+          BearerAuth: []
+  '/settings/{setting}/toggle':
+    parameters:
+      -
+        in: path
+        name: setting
+        required: true
+        description: 'Unique identifier for setting.'
+        schema:
+          type: string
+    put:
+      summary: 'Update settings setting toggle'
+      operationId: settings_setting_toggle_update
+      tags:
+        - Settings
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: toggleSetting
+      security:
+        -
+          BearerAuth: []
+  /staff:
+    get:
+      summary: 'Get staff'
+      operationId: staff_list
+      tags:
+        - Staff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStaff
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: type
+          required: false
+          description: 'Query parameter: type.'
+          schema:
+            type: string
+    post:
+      summary: 'Create staff'
+      operationId: staff_create
+      tags:
+        - Staff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createStaff
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {email: {type: string, description: 'Email address.'}, employeeId: {type: string, description: 'employeeId field.'}, firstName: {type: string, description: 'Name value.'}, hasLogin: {type: string, description: 'hasLogin field.'}, lastName: {type: string, description: 'Name value.'}, notes: {type: string, description: 'notes field.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}, type: {type: string, description: 'type field.'}}
+  '/staff/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete staff id'
+      operationId: staff_id_delete
+      tags:
+        - Staff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteStaff
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update staff id'
+      operationId: staff_id_update
+      tags:
+        - Staff
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateStaff
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {email: {type: string, description: 'Email address.'}, employeeId: {type: string, description: 'employeeId field.'}, firstName: {type: string, description: 'Name value.'}, hasLogin: {type: string, description: 'hasLogin field.'}, lastName: {type: string, description: 'Name value.'}, notes: {type: string, description: 'notes field.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}, type: {type: string, description: 'type field.'}}
+  /students:
+    get:
+      summary: 'Get students'
+      operationId: students_list
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudents
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: page
+          required: false
+          description: 'Page number for paginated results.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: search
+          required: false
+          description: 'Search term used to filter results.'
+          schema:
+            type: string
+    post:
+      summary: 'Create students'
+      operationId: students_create
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createStudent
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {address: {type: string, description: 'address field.'}, classe: {type: string, description: 'classe field.'}, dateOfBirth: {type: string, description: 'Date value.'}, email: {type: string, description: 'Email address.'}, firstName: {type: string, description: 'Name value.'}, gender: {type: string, description: 'gender field.'}, lastName: {type: string, description: 'Name value.'}, matricule: {type: string, description: 'matricule field.'}, parentName: {type: string, description: 'Name value.'}, parentPhone: {type: string, description: 'Phone number.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}}
+  '/students/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete students id'
+      operationId: students_id_delete
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteStudent
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get students id'
+      operationId: students_id_list
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getStudent
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update students id'
+      operationId: students_id_update
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateStudent
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {...studentData: {type: string, description: '...studentData field.'}, email: {type: string, description: 'Email address.'}, firstName: {type: string, description: 'Name value.'}, lastName: {type: string, description: 'Name value.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}}
+  '/students/{id}/photo':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update students id photo'
+      operationId: students_id_photo_update
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: uploadPhoto
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {avatar: {type: string, format: binary, description: 'avatar field.'}}
+  /students/import:
+    post:
+      summary: 'Create students import'
+      operationId: students_import_create
+      tags:
+        - Students
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: importStudents
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {file: {type: string, format: binary, description: 'file field.'}, classe: {type: string, description: 'classe field.'}}
+  /subjects:
+    get:
+      summary: 'Get subjects'
+      operationId: subjects_list
+      tags:
+        - Subjects
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSubjects
+      security:
+        -
+          BearerAuth: []
+    post:
+      summary: 'Create subjects'
+      operationId: subjects_create
+      tags:
+        - Subjects
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createSubject
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classes: {type: string, description: 'classes field.'}, code: {type: string, description: 'code field.'}, coefficient: {type: string, description: 'coefficient field.'}, description: {type: string, description: 'Description text.'}, name: {type: string, description: 'Name value.'}}
+  '/subjects/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete subjects id'
+      operationId: subjects_id_delete
+      tags:
+        - Subjects
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteSubject
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get subjects id'
+      operationId: subjects_id_list
+      tags:
+        - Subjects
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getSubject
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update subjects id'
+      operationId: subjects_id_update
+      tags:
+        - Subjects
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateSubject
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classes: {type: string, description: 'classes field.'}}
+  /teachers:
+    get:
+      summary: 'Get teachers'
+      operationId: teachers_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTeachers
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: page
+          required: false
+          description: 'Page number for paginated results.'
+          schema:
+            type: integer
+    post:
+      summary: 'Create teachers'
+      operationId: teachers_create
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createTeacher
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {classes: {type: string, description: 'classes field.'}, email: {type: string, description: 'Email address.'}, employeeId: {type: string, description: 'employeeId field.'}, firstName: {type: string, description: 'Name value.'}, lastName: {type: string, description: 'Name value.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}, specialization: {type: string, description: 'specialization field.'}, subjects: {type: string, description: 'subjects field.'}}
+  '/teachers/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete teachers id'
+      operationId: teachers_id_delete
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteTeacher
+      security:
+        -
+          BearerAuth: []
+    get:
+      summary: 'Get teachers id'
+      operationId: teachers_id_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTeacher
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update teachers id'
+      operationId: teachers_id_update
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateTeacher
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {...teacherData: {type: string, description: '...teacherData field.'}, email: {type: string, description: 'Email address.'}, firstName: {type: string, description: 'Name value.'}, lastName: {type: string, description: 'Name value.'}, password: {type: string, description: 'Password value.'}, phone: {type: string, description: 'Phone number.'}}
+  /teachers/basic-list:
+    get:
+      summary: 'Get teachers basic-list'
+      operationId: teachers_basic_list_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTeachersBasic
+      security:
+        -
+          BearerAuth: []
+  /teachers/import:
+    post:
+      summary: 'Create teachers import'
+      operationId: teachers_import_create
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: importTeachers
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'Multipart form data payload.'
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {file: {type: string, format: binary, description: 'file field.'}}
+  /teachers/my-classes:
+    get:
+      summary: 'Get teachers my-classes'
+      operationId: teachers_my_classes_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMyClasses
+      security:
+        -
+          BearerAuth: []
+  /teachers/my-presence:
+    get:
+      summary: 'Get teachers my-presence'
+      operationId: teachers_my_presence_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getPresence
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+  /teachers/my-subjects:
+    get:
+      summary: 'Get teachers my-subjects'
+      operationId: teachers_my_subjects_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getMySubjects
+      security:
+        -
+          BearerAuth: []
+  /teachers/presence:
+    get:
+      summary: 'Get teachers presence'
+      operationId: teachers_presence_list
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getPresence
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+  /teachers/sign-out-by-staff:
+    post:
+      summary: 'Create teachers sign-out-by-staff'
+      operationId: teachers_sign_out_by_staff_create
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: signOutByStaff
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {date: {type: string, description: 'Date value.'}, teacherId: {type: string, description: 'teacherId field.'}}
+  /teachers/sign-presence:
+    post:
+      summary: 'Create teachers sign-presence'
+      operationId: teachers_sign_presence_create
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: signPresence
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: date
+          required: false
+          description: 'Query parameter: date.'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {date: {type: string, description: 'Date value.'}, teacherId: {type: string, description: 'teacherId field.'}}
+  /teachers/sign-presence-by-staff:
+    post:
+      summary: 'Create teachers sign-presence-by-staff'
+      operationId: teachers_sign_presence_by_staff_create
+      tags:
+        - Teachers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: signPresenceByStaff
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {date: {type: string, description: 'Date value.'}, teacherId: {type: string, description: 'teacherId field.'}}
+  /transports:
+    get:
+      summary: 'Get transports'
+      operationId: transports_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTransports
+      security:
+        -
+          BearerAuth: []
+    post:
+      summary: 'Create transports'
+      operationId: transports_create
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createTransport
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {capacity: {type: string, description: 'capacity field.'}, driver: {type: string, description: 'driver field.'}, matricule: {type: string, description: 'matricule field.'}, name: {type: string, description: 'Name value.'}, notes: {type: string, description: 'notes field.'}, route: {type: string, description: 'route field.'}}
+  '/transports/{id}':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    delete:
+      summary: 'Delete transports id'
+      operationId: transports_id_delete
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: deleteTransport
+      security:
+        -
+          BearerAuth: []
+    put:
+      summary: 'Update transports id'
+      operationId: transports_id_update
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateTransport
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {capacity: {type: string, description: 'capacity field.'}, driver: {type: string, description: 'driver field.'}, matricule: {type: string, description: 'matricule field.'}, name: {type: string, description: 'Name value.'}, notes: {type: string, description: 'notes field.'}, route: {type: string, description: 'route field.'}}
+  '/transports/{id}/payments':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    put:
+      summary: 'Update transports id payments'
+      operationId: transports_id_payments_update
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateTransportPayments
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {assuranceDueDate: {type: string, description: 'Date value.'}, assurancePaid: {type: string, description: 'assurancePaid field.'}, vignetteDueDate: {type: string, description: 'Date value.'}, vignettePaid: {type: string, description: 'vignettePaid field.'}}
+  '/transports/{id}/payments/notify':
+    parameters:
+      -
+        in: path
+        name: id
+        required: true
+        description: 'Unique resource identifier.'
+        schema:
+          type: string
+    post:
+      summary: 'Create transports id payments notify'
+      operationId: transports_id_payments_notify_create
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: notifyTransportPayments
+      security:
+        -
+          BearerAuth: []
+  /transports/drivers:
+    get:
+      summary: 'Get transports drivers'
+      operationId: transports_drivers_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getDrivers
+      security:
+        -
+          BearerAuth: []
+  /transports/load-balance:
+    get:
+      summary: 'Get transports load-balance'
+      operationId: transports_load_balance_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTransportLoadBalance
+      security:
+        -
+          BearerAuth: []
+  /transports/payments:
+    get:
+      summary: 'Get transports payments'
+      operationId: transports_payments_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTransportPayments
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: notify
+          required: false
+          description: 'Query parameter: notify.'
+          schema:
+            type: string
+  /transports/students:
+    get:
+      summary: 'Get transports students'
+      operationId: transports_students_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTransportStudents
+      security:
+        -
+          BearerAuth: []
+      parameters:
+        -
+          in: query
+          name: classe
+          required: false
+          description: 'Query parameter: classe.'
+          schema:
+            type: string
+        -
+          in: query
+          name: limit
+          required: false
+          description: 'Maximum number of results to return.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: page
+          required: false
+          description: 'Page number for paginated results.'
+          schema:
+            type: integer
+        -
+          in: query
+          name: search
+          required: false
+          description: 'Search term used to filter results.'
+          schema:
+            type: string
+        -
+          in: query
+          name: section
+          required: false
+          description: 'Query parameter: section.'
+          schema:
+            type: string
+        -
+          in: query
+          name: status
+          required: false
+          description: 'Query parameter: status.'
+          schema:
+            type: string
+  '/transports/students/{studentId}/assignment':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    put:
+      summary: 'Update transports students studentId assignment'
+      operationId: transports_students_studentid_assignment_update
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: assignStudentTransport
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {outboundTime: {type: string, description: 'outboundTime field.'}, reason: {type: string, description: 'reason field.'}, returnTime: {type: string, description: 'returnTime field.'}, stopName: {type: string, description: 'Name value.'}, transportId: {type: string, description: 'transportId field.'}}
+  '/transports/students/{studentId}/request':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    post:
+      summary: 'Create transports students studentId request'
+      operationId: transports_students_studentid_request_create
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: createTransportRequest
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {note: {type: string, description: 'note field.'}}
+  '/transports/students/{studentId}/status':
+    parameters:
+      -
+        in: path
+        name: studentId
+        required: true
+        description: 'Unique identifier for student.'
+        schema:
+          type: string
+    put:
+      summary: 'Update transports students studentId status'
+      operationId: transports_students_studentid_status_update
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: updateTransportStudentStatus
+      security:
+        -
+          BearerAuth: []
+      requestBody:
+        required: true
+        description: 'JSON payload for this request.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {reason: {type: string, description: 'reason field.'}, status: {type: string, description: 'status field.'}}
+  /transports/students/dashboard:
+    get:
+      summary: 'Get transports students dashboard'
+      operationId: transports_students_dashboard_list
+      tags:
+        - Transport
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ApiResponse'}
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+      x-handler: getTransportStudentsDashboard
+      security:
+        -
+          BearerAuth: []
+tags:
+  -
+    name: Assignments
+  -
+    name: Attendance
+  -
+    name: Auth
+  -
+    name: Classes
+  -
+    name: Dashboard
+  -
+    name: Events
+  -
+    name: Exams
+  -
+    name: LeaveRequests
+  -
+    name: Messages
+  -
+    name: News
+  -
+    name: Notes
+  -
+    name: Notifications
+  -
+    name: Payments
+  -
+    name: Schedule
+  -
+    name: Sections
+  -
+    name: Settings
+  -
+    name: Staff
+  -
+    name: Students
+  -
+    name: Subjects
+  -
+    name: System
+  -
+    name: Teachers
+  -
+    name: Transport

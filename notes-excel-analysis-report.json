@@ -1,0 +1,3067 @@
+{
+  "scannedAt": "2026-03-17T02:28:31.079Z",
+  "root": "notes-excel",
+  "totalFiles": 75,
+  "successfullyParsed": 75,
+  "principal": [
+    {
+      "niveau": "1APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "النقل",
+        "الإستماع والتحدث"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Comptine/Chant",
+        "Graphisme",
+        "Activités orales"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "النقل",
+        "الإستماع والتحدث"
+      ],
+      "nbFichiers": 2
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "الإستماع والتحدث",
+        "تمارين كتابية"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Comptine/Chant",
+        "Graphisme",
+        "Activités orales"
+      ],
+      "nbFichiers": 2
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "copie",
+        "dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Exercices écrits"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 3
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الإستماع والتحدث",
+        "التطبيقات الكتابية",
+        "مشروع الوحدة"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Exercices écrits",
+        "Production de l’écrit"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "التراكيب",
+        "الصرف والتحويل",
+        "مشروع الوحدة",
+        "التواصل الشفهي"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Production de l’écrit"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "القراءة",
+        "الإملاء",
+        "الشكل",
+        "التراكيب",
+        "الصرف والتحويل",
+        "فهم المقروء",
+        "إنشاء",
+        "التواصل الشفوي",
+        "مشروع الوحدة"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités de Lecture",
+        "communication et actes de langage",
+        "Poésie/lecture/diction"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "القراءة",
+        "الإملاء",
+        "الشكل",
+        "التراكيب",
+        "الصرف والتحويل",
+        "فهم المقروء",
+        "إنشاء",
+        "التواصل الشفوي",
+        "مشروع الوحدة"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités de Lecture",
+        "communication et actes de langage",
+        "Poésie/lecture/diction"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "nbFichiers": 1
+    }
+  ],
+  "anomalies": {
+    "unreadableFiles": [],
+    "matiereIntrouvable": [],
+    "composantesNonDetectees": [],
+    "structureDifferente": [
+      {
+        "niveau": "2APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2",
+        "variants": [
+          {
+            "composantes": [
+              "تاريخ الإزدياد",
+              "التعبير الكتابي",
+              "القراءة",
+              "الإملاء",
+              "الخط",
+              "النقل",
+              "الإستماع والتحدث"
+            ],
+            "nbFichiers": 2
+          },
+          {
+            "composantes": [
+              "تاريخ الإزدياد",
+              "التعبير الكتابي",
+              "القراءة",
+              "الإملاء",
+              "الخط",
+              "الإستماع والتحدث",
+              "تمارين كتابية"
+            ],
+            "nbFichiers": 1
+          }
+        ]
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2",
+        "variants": [
+          {
+            "composantes": [
+              "تاريخ الإزدياد",
+              "Comptine/Chant",
+              "Graphisme",
+              "Activités orales"
+            ],
+            "nbFichiers": 2
+          },
+          {
+            "composantes": [
+              "تاريخ الإزدياد",
+              "Activités de prod. écrite",
+              "Lexique",
+              "Grammaire",
+              "Conjugaison",
+              "Orthographe/Dictée",
+              "copie",
+              "dictée",
+              "Activités orales",
+              "Poésie",
+              "Lecture",
+              "Écriture/Copie",
+              "Exercices écrits"
+            ],
+            "nbFichiers": 1
+          }
+        ]
+      }
+    ]
+  },
+  "templatesProposes": [
+    {
+      "niveau": "1APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "النقل",
+        "الإستماع والتحدث"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التعبير الكتابي",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الخط",
+            "weight": 1
+          },
+          {
+            "component": "النقل",
+            "weight": 1
+          },
+          {
+            "component": "الإستماع والتحدث",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Comptine/Chant",
+        "Graphisme",
+        "Activités orales"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Comptine/Chant",
+            "weight": 1
+          },
+          {
+            "component": "Graphisme",
+            "weight": 1
+          },
+          {
+            "component": "Activités orales",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "1APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "النقل",
+        "الإستماع والتحدث"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التعبير الكتابي",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الخط",
+            "weight": 1
+          },
+          {
+            "component": "النقل",
+            "weight": 1
+          },
+          {
+            "component": "الإستماع والتحدث",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الخط",
+        "الإستماع والتحدث",
+        "تمارين كتابية"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التعبير الكتابي",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الخط",
+            "weight": 1
+          },
+          {
+            "component": "الإستماع والتحدث",
+            "weight": 1
+          },
+          {
+            "component": "تمارين كتابية",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Comptine/Chant",
+        "Graphisme",
+        "Activités orales"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Comptine/Chant",
+            "weight": 1
+          },
+          {
+            "component": "Graphisme",
+            "weight": 1
+          },
+          {
+            "component": "Activités orales",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "copie",
+        "dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Exercices écrits"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Activités de prod. écrite",
+            "weight": 1
+          },
+          {
+            "component": "Lexique",
+            "weight": 1
+          },
+          {
+            "component": "Grammaire",
+            "weight": 1
+          },
+          {
+            "component": "Conjugaison",
+            "weight": 1
+          },
+          {
+            "component": "Orthographe/Dictée",
+            "weight": 1
+          },
+          {
+            "component": "copie",
+            "weight": 1
+          },
+          {
+            "component": "dictée",
+            "weight": 1
+          },
+          {
+            "component": "Activités orales",
+            "weight": 1
+          },
+          {
+            "component": "Poésie",
+            "weight": 1
+          },
+          {
+            "component": "Lecture",
+            "weight": 1
+          },
+          {
+            "component": "Écriture/Copie",
+            "weight": 1
+          },
+          {
+            "component": "Exercices écrits",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "2APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "الإستماع والتحدث",
+        "التطبيقات الكتابية",
+        "مشروع الوحدة"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التعبير الكتابي",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الإستماع والتحدث",
+            "weight": 1
+          },
+          {
+            "component": "التطبيقات الكتابية",
+            "weight": 1
+          },
+          {
+            "component": "مشروع الوحدة",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Exercices écrits",
+        "Production de l’écrit"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Activités de prod. écrite",
+            "weight": 1
+          },
+          {
+            "component": "Lexique",
+            "weight": 1
+          },
+          {
+            "component": "Grammaire",
+            "weight": 1
+          },
+          {
+            "component": "Conjugaison",
+            "weight": 1
+          },
+          {
+            "component": "dictée",
+            "weight": 1
+          },
+          {
+            "component": "Activités orales",
+            "weight": 1
+          },
+          {
+            "component": "Poésie",
+            "weight": 1
+          },
+          {
+            "component": "Lecture",
+            "weight": 1
+          },
+          {
+            "component": "Écriture/Copie",
+            "weight": 1
+          },
+          {
+            "component": "Exercices écrits",
+            "weight": 1
+          },
+          {
+            "component": "Production de l’écrit",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "3APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التاريخ",
+            "weight": 1
+          },
+          {
+            "component": "الجغرافية",
+            "weight": 1
+          },
+          {
+            "component": "التربية المدنية",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التعبير الكتابي",
+        "القراءة",
+        "الإملاء",
+        "التراكيب",
+        "الصرف والتحويل",
+        "مشروع الوحدة",
+        "التواصل الشفهي"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التعبير الكتابي",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "التراكيب",
+            "weight": 1
+          },
+          {
+            "component": "الصرف والتحويل",
+            "weight": 1
+          },
+          {
+            "component": "مشروع الوحدة",
+            "weight": 1
+          },
+          {
+            "component": "التواصل الشفهي",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités orales",
+        "Poésie",
+        "Lecture",
+        "Écriture/Copie",
+        "Production de l’écrit"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Lexique",
+            "weight": 1
+          },
+          {
+            "component": "Grammaire",
+            "weight": 1
+          },
+          {
+            "component": "Conjugaison",
+            "weight": 1
+          },
+          {
+            "component": "Orthographe/Dictée",
+            "weight": 1
+          },
+          {
+            "component": "Activités orales",
+            "weight": 1
+          },
+          {
+            "component": "Poésie",
+            "weight": 1
+          },
+          {
+            "component": "Lecture",
+            "weight": 1
+          },
+          {
+            "component": "Écriture/Copie",
+            "weight": 1
+          },
+          {
+            "component": "Production de l’écrit",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "4APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التاريخ",
+            "weight": 1
+          },
+          {
+            "component": "الجغرافية",
+            "weight": 1
+          },
+          {
+            "component": "التربية المدنية",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "القراءة",
+        "الإملاء",
+        "الشكل",
+        "التراكيب",
+        "الصرف والتحويل",
+        "فهم المقروء",
+        "إنشاء",
+        "التواصل الشفوي",
+        "مشروع الوحدة"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الشكل",
+            "weight": 1
+          },
+          {
+            "component": "التراكيب",
+            "weight": 1
+          },
+          {
+            "component": "الصرف والتحويل",
+            "weight": 1
+          },
+          {
+            "component": "فهم المقروء",
+            "weight": 1
+          },
+          {
+            "component": "إنشاء",
+            "weight": 1
+          },
+          {
+            "component": "التواصل الشفوي",
+            "weight": 1
+          },
+          {
+            "component": "مشروع الوحدة",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités de Lecture",
+        "communication et actes de langage",
+        "Poésie/lecture/diction"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Activités de prod. écrite",
+            "weight": 1
+          },
+          {
+            "component": "Lexique",
+            "weight": 1
+          },
+          {
+            "component": "Grammaire",
+            "weight": 1
+          },
+          {
+            "component": "Conjugaison",
+            "weight": 1
+          },
+          {
+            "component": "Orthographe/Dictée",
+            "weight": 1
+          },
+          {
+            "component": "Activités de Lecture",
+            "weight": 1
+          },
+          {
+            "component": "communication et actes de langage",
+            "weight": 1
+          },
+          {
+            "component": "Poésie/lecture/diction",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "5APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "الاجتماعيات",
+      "codeMatiere": "0018",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "التاريخ",
+        "الجغرافية",
+        "التربية المدنية"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "التاريخ",
+            "weight": 1
+          },
+          {
+            "component": "الجغرافية",
+            "weight": 1
+          },
+          {
+            "component": "التربية المدنية",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية الإسلامية",
+      "codeMatiere": "0024",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية البدنية",
+      "codeMatiere": "0026",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "التربية الفنية",
+      "codeMatiere": "1000",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "الرياضيات",
+      "codeMatiere": "0019",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة الإنجليزية",
+      "codeMatiere": "0013",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة العربية",
+      "codeMatiere": "0011",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "القراءة",
+        "الإملاء",
+        "الشكل",
+        "التراكيب",
+        "الصرف والتحويل",
+        "فهم المقروء",
+        "إنشاء",
+        "التواصل الشفوي",
+        "مشروع الوحدة"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "القراءة",
+            "weight": 1
+          },
+          {
+            "component": "الإملاء",
+            "weight": 1
+          },
+          {
+            "component": "الشكل",
+            "weight": 1
+          },
+          {
+            "component": "التراكيب",
+            "weight": 1
+          },
+          {
+            "component": "الصرف والتحويل",
+            "weight": 1
+          },
+          {
+            "component": "فهم المقروء",
+            "weight": 1
+          },
+          {
+            "component": "إنشاء",
+            "weight": 1
+          },
+          {
+            "component": "التواصل الشفوي",
+            "weight": 1
+          },
+          {
+            "component": "مشروع الوحدة",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "اللغة الفرنسية",
+      "codeMatiere": "0012",
+      "semestre": "S2",
+      "composantes": [
+        "تاريخ الإزدياد",
+        "Activités de prod. écrite",
+        "Lexique",
+        "Grammaire",
+        "Conjugaison",
+        "Orthographe/Dictée",
+        "Activités de Lecture",
+        "communication et actes de langage",
+        "Poésie/lecture/diction"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "تاريخ الإزدياد",
+            "weight": 1
+          },
+          {
+            "component": "Activités de prod. écrite",
+            "weight": 1
+          },
+          {
+            "component": "Lexique",
+            "weight": 1
+          },
+          {
+            "component": "Grammaire",
+            "weight": 1
+          },
+          {
+            "component": "Conjugaison",
+            "weight": 1
+          },
+          {
+            "component": "Orthographe/Dictée",
+            "weight": 1
+          },
+          {
+            "component": "Activités de Lecture",
+            "weight": 1
+          },
+          {
+            "component": "communication et actes de langage",
+            "weight": 1
+          },
+          {
+            "component": "Poésie/lecture/diction",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "المعلوميات",
+      "codeMatiere": "0030",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "niveau": "6APG",
+      "matiere": "النشاط العلمي",
+      "codeMatiere": "0034",
+      "semestre": "S2",
+      "composantes": [
+        "B",
+        "M"
+      ],
+      "regleCalculProposee": {
+        "type": "moyenne_ponderee",
+        "formula": "noteFinale = somme(note_i * poids_i) / somme(poids_i)",
+        "defaultWeights": [
+          {
+            "component": "B",
+            "weight": 1
+          },
+          {
+            "component": "M",
+            "weight": 1
+          }
+        ]
+      }
+    }
+  ],
+  "recommandations": {
+    "structuresStables": [
+      {
+        "niveau": "1APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "1APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "3APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "الاجتماعيات",
+        "codeMatiere": "0018",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "4APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "الاجتماعيات",
+        "codeMatiere": "0018",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "5APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "اللغة الإنجليزية",
+        "codeMatiere": "0013",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "الاجتماعيات",
+        "codeMatiere": "0018",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "الرياضيات",
+        "codeMatiere": "0019",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "التربية الإسلامية",
+        "codeMatiere": "0024",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "التربية البدنية",
+        "codeMatiere": "0026",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "المعلوميات",
+        "codeMatiere": "0030",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "النشاط العلمي",
+        "codeMatiere": "0034",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "6APG",
+        "matiere": "التربية الفنية",
+        "codeMatiere": "1000",
+        "semestre": "S2"
+      }
+    ],
+    "normalisationManuelle": [
+      {
+        "niveau": "2APG",
+        "matiere": "اللغة العربية",
+        "codeMatiere": "0011",
+        "semestre": "S2"
+      },
+      {
+        "niveau": "2APG",
+        "matiere": "اللغة الفرنسية",
+        "codeMatiere": "0012",
+        "semestre": "S2"
+      }
+    ]
+  }
+}
