@@ -4,6 +4,7 @@
 const Teacher = require('../models/Teacher');
 const TeacherPresence = require('../models/TeacherPresence');
 const User = require('../models/User');
+const Student = require('../models/Student');
 const Schedule = require('../models/Schedule');
 const XLSX = require('xlsx');
 const { asyncHandler, getTodayStart, getTodayEnd } = require('../utils/helpers');
@@ -618,9 +619,16 @@ const getMyClasses = asyncHandler(async (req, res) => {
     throw new Error('Profil enseignant introuvable.');
   }
 
+  const classes = await Promise.all(
+    (teacher.classes || []).map(async (cls) => {
+      const count = await Student.countDocuments({ classe: cls._id });
+      return { _id: cls._id, id: cls._id, name: cls.name, level: cls.level, studentCount: count };
+    })
+  );
+
   res.status(200).json({
     success: true,
-    data: teacher.classes || [],
+    data: classes,
   });
 });
 
