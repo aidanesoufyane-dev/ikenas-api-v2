@@ -38,7 +38,6 @@ const studentSchema = new mongoose.Schema(
     classOrder: {
       type: Number,
       default: null,
-      min: 1,
     },
     parentName: {
       type: String,
