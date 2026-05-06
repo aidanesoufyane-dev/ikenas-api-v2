@@ -1030,14 +1030,16 @@ const getMyResults = asyncHandler(async (req, res) => {
   }
 
   const studentObjectId = new mongoose.Types.ObjectId(String(student._id));
+  const studentIdStr = String(student._id);
   console.log(`[getMyResults] role=${req.user.role} student=${student._id} queryStudentId=${studentId}`);
 
-  const filter = { student: studentObjectId };
+  // Match both ObjectId and string forms in case old entries were saved without casting
+  const filter = { student: { $in: [studentObjectId, studentIdStr] } };
   if (req.query.semester) {
     filter.semester = req.query.semester;
   }
 
-  const totalEntries = await NoteEntry.countDocuments({ student: studentObjectId });
+  const totalEntries = await NoteEntry.countDocuments({ student: { $in: [studentObjectId, studentIdStr] } });
   console.log(`[getMyResults] NoteEntry count for student=${student._id}: ${totalEntries}`);
 
   const entries = await NoteEntry.find(filter)
