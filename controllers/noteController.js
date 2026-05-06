@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const NoteSheet = require('../models/NoteSheet');
 const NoteEntry = require('../models/NoteEntry');
 const ExcelJS = require('exceljs');
@@ -905,6 +906,8 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     }))
     .filter((result) => result.student);
 
+  console.log(`[saveSheetResults] classe=${sheet.classe} studentsInClass=${studentsInClass.length} incomingResults=${results.length} filteredResults=${filteredResults.length}`);
+
   const normalized = filteredResults.map((result) => {
     const payload = buildResultPayload({
       score: result.score,
@@ -921,9 +924,13 @@ const saveSheetResults = asyncHandler(async (req, res) => {
 
   const resultByStudent = new Map(normalized.map((item) => [String(item.student), item]));
 
+  const toObjectId = (val) => {
+    try { return new mongoose.Types.ObjectId(String(val)); } catch (_) { return val; }
+  };
+
   const ops = normalized.map((item) => ({
     updateOne: {
-      filter: { sheet: sheet._id, student: item.student },
+      filter: { sheet: sheet._id, student: toObjectId(item.student) },
       update: {
         $set: {
           score: resultByStudent.get(String(item.student))?.score ?? null,
@@ -1022,10 +1029,16 @@ const getMyResults = asyncHandler(async (req, res) => {
     }
   }
 
-  const filter = { student: student._id };
+  const studentObjectId = new mongoose.Types.ObjectId(String(student._id));
+  console.log(`[getMyResults] role=${req.user.role} student=${student._id} queryStudentId=${studentId}`);
+
+  const filter = { student: studentObjectId };
   if (req.query.semester) {
     filter.semester = req.query.semester;
   }
+
+  const totalEntries = await NoteEntry.countDocuments({ student: studentObjectId });
+  console.log(`[getMyResults] NoteEntry count for student=${student._id}: ${totalEntries}`);
 
   const entries = await NoteEntry.find(filter)
     .populate({
