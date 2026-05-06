@@ -874,10 +874,27 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     return res.status(400).json({ success: false, message: 'Données invalides.' });
   }
 
-  const studentsInClass = await Student.find({ classe: sheet.classe }).select('_id');
+  const studentsInClass = await Student.find({ classe: sheet.classe }).select('_id user');
   const allowedStudentIds = new Set(studentsInClass.map((student) => String(student._id)));
+  const userToStudentId = new Map(
+    studentsInClass.map((student) => [String(student.user || ''), String(student._id)])
+  );
 
-  const filteredResults = results.filter((result) => allowedStudentIds.has(String(result.student)));
+  const resolveStudentId = (value) => {
+    const raw = String(value || '').trim();
+    if (!raw) return null;
+    if (allowedStudentIds.has(raw)) return raw;
+    if (userToStudentId.has(raw)) return userToStudentId.get(raw);
+    return null;
+  };
+
+  const filteredResults = results
+    .map((result) => ({
+      ...result,
+      student: resolveStudentId(result.student),
+    }))
+    .filter((result) => result.student);
+
   const normalized = filteredResults.map((result) => {
     const payload = buildResultPayload({
       score: result.score,
