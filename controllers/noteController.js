@@ -781,8 +781,6 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     sheetPayload.title = normalizedTitle;
   }
 
-  await ensureSubjectBelongsToClass(sheetPayload.subject, sheetPayload.classe);
-
   let teacher = null;
   if (req.user.role === 'teacher') {
     teacher = await getTeacherProfile(req.user.id);
@@ -791,6 +789,18 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       classe: sheetPayload.classe,
       subject: sheetPayload.subject,
     });
+  }
+
+  try {
+    await ensureSubjectBelongsToClass(sheetPayload.subject, sheetPayload.classe);
+  } catch (error) {
+    const teacherHasContext = teacher
+      && teacher.classes?.some((classId) => classId.toString() === String(sheetPayload.classe))
+      && teacher.subjects?.some((subjectId) => subjectId.toString() === String(sheetPayload.subject));
+
+    if (!teacherHasContext) {
+      throw error;
+    }
   }
 
   let linkedExam = null;
