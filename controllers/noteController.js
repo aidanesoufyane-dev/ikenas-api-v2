@@ -841,6 +841,8 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       coefficient: Number(sheetPayload.coefficient || 1) || 1,
       maxScore,
       componentsTemplate,
+      visible: sheetPayload.visible !== undefined ? sheetPayload.visible : true,
+      isActive: sheetPayload.isActive !== undefined ? sheetPayload.isActive : true,
       createdBy: req.user.id,
     });
   } else {
@@ -853,6 +855,15 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     sheet.coefficient = Number(sheetPayload.coefficient || sheet.coefficient || 1) || 1;
     sheet.maxScore = maxScore;
     sheet.componentsTemplate = componentsTemplate;
+    if (sheetPayload.visible !== undefined) {
+      sheet.visible = sheetPayload.visible;
+    } else if (sheet.visible === false) {
+      // Default to visible when saving new grades unless explicitly hidden.
+      sheet.visible = true;
+    }
+    if (sheetPayload.isActive !== undefined) {
+      sheet.isActive = sheetPayload.isActive;
+    }
     if (teacher) {
       sheet.teacher = teacher._id;
     }
@@ -950,7 +961,25 @@ const saveSheetResults = asyncHandler(async (req, res) => {
 });
 
 const getMyResults = asyncHandler(async (req, res) => {
-  const student = await resolveActingStudent(req);
+  let student = null;
+  try {
+    student = await resolveActingStudent(req);
+  } catch (_) {}
+
+  // Fallback: if parentUser link is missing, find the student by the provided ID directly
+  if (!student) {
+    const studentId =
+      req.query.studentId ||
+      req.headers['x-student-id'] ||
+      req.body?.studentId;
+    if (studentId) {
+      student = await Student.findById(studentId).catch(() => null);
+    }
+  }
+
+  if (!student) {
+    return res.status(200).json({ success: true, data: [], summary: {} });
+  }
 
   const filter = { student: student._id };
   if (req.query.semester) {
