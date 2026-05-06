@@ -434,22 +434,35 @@ const getResults = asyncHandler(async (req, res) => {
  */
 const getMyResults = asyncHandler(async (req, res) => {
   let student = null;
-  try {
-    student = await resolveActingStudent(req);
-  } catch (_) {}
+  const studentId =
+    req.query.studentId ||
+    req.headers['x-student-id'] ||
+    req.body?.studentId;
 
-  if (!student) {
-    const studentId =
-      req.query.studentId ||
-      req.headers['x-student-id'] ||
-      req.body?.studentId;
-    if (studentId) {
+  if (req.user?.role === 'teacher') {
+    if (!studentId) {
+      return res.status(400).json({ success: false, message: 'studentId requis.' });
+    }
+    student = await Student.findById(studentId).catch(() => null);
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Profil élève non trouvé.' });
+    }
+    const teacher = await Teacher.findOne({ user: req.user.id }).select('classes');
+    if (!teacher || !teacher.classes?.some((classId) => classId.toString() === String(student.classe))) {
+      return res.status(403).json({ success: false, message: 'Accès refusé.' });
+    }
+  } else {
+    try {
+      student = await resolveActingStudent(req);
+    } catch (_) {}
+
+    if (!student && studentId) {
       student = await Student.findById(studentId).catch(() => null);
     }
-  }
 
-  if (!student) {
-    return res.status(200).json({ success: true, data: [] });
+    if (!student) {
+      return res.status(200).json({ success: true, data: [] });
+    }
   }
 
   const resultFilter = { student: student._id };

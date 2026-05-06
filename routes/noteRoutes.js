@@ -17,7 +17,7 @@ const {
 } = require('../controllers/noteController');
 const { protect, roleCheck } = require('../middleware/auth');
 
-router.get('/my-results', protect, roleCheck('student', 'parent'), getMyResults);
+router.get('/my-results', protect, roleCheck('student', 'parent', 'teacher'), getMyResults);
 router.get('/class-ranking', protect, roleCheck('admin', 'teacher', 'student', 'parent'), getClassRanking);
 router.get('/results', protect, roleCheck('admin', 'teacher'), getResults);
 router.get('/export/excel', protect, roleCheck('admin'), exportSheetExcel);
