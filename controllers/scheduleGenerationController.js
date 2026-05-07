@@ -372,7 +372,7 @@ const normalizeGenerationPayload = (payload = {}) => {
         hoursPerWeek: Number(plan.hoursPerWeek) || 0,
         twoSessionsMode: TWO_SESSION_MODES.includes(plan.twoSessionsMode) ? plan.twoSessionsMode : 'split',
       }))
-      .filter((plan) => plan.classId && plan.subjectId && plan.hoursPerWeek > 0),
+      .filter((plan) => plan.classId && plan.subjectId && plan.teacherId && plan.hoursPerWeek > 0),
     teacherAvailabilities: (payload.teacherAvailabilities || [])
       .map((entry) => ({
         teacherId: String(entry.teacherId || ''),
@@ -413,10 +413,12 @@ const buildDefaultPlans = ({ classes, subjects, teachers }) => {
         return teachesClass && teachesSubject;
       });
 
+      if (!assignedTeacher) return;
+
       plans.push({
         classId,
         subjectId,
-        teacherId: assignedTeacher ? String(assignedTeacher._id) : '',
+        teacherId: String(assignedTeacher._id),
         hoursPerWeek: 2,
         twoSessionsMode: 'split',
       });
@@ -1312,38 +1314,6 @@ const getGenerationBootstrap = asyncHandler(async (req, res) => {
   if (!generationConfig.subjectPlans.length) {
     generationConfig.subjectPlans = buildDefaultPlans({ classes, subjects, teachers });
   }
-
-  const existingPlanKeys = new Set(
-    (generationConfig.subjectPlans || []).map((plan) => `${String(plan.classId)}|${String(plan.subjectId)}`)
-  );
-
-  classes.forEach((classe) => {
-    const classId = String(classe._id);
-    const linkedSubjects = subjects.filter((subject) =>
-      (subject.classes || []).some((entry) => String(entry._id || entry) === classId)
-    );
-
-    linkedSubjects.forEach((subject) => {
-      const subjectId = String(subject._id);
-      const key = `${classId}|${subjectId}`;
-      if (existingPlanKeys.has(key)) return;
-
-      const assignedTeacher = teachers.find((teacher) => {
-        const teachesClass = (teacher.classes || []).some((entry) => String(entry._id || entry) === classId);
-        const teachesSubject = (teacher.subjects || []).some((entry) => String(entry._id || entry) === subjectId);
-        return teachesClass && teachesSubject;
-      });
-
-      generationConfig.subjectPlans.push({
-        classId,
-        subjectId,
-        teacherId: assignedTeacher ? String(assignedTeacher._id) : '',
-        hoursPerWeek: 2,
-        twoSessionsMode: 'split',
-      });
-      existingPlanKeys.add(key);
-    });
-  });
 
   if (!generationConfig.rooms.length) {
     generationConfig.rooms = [

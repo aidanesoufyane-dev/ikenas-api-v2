@@ -49,10 +49,8 @@ const isOriginAllowed = (origin) => {
   // Fallback local dev/réseau si aucune origine de prod n'est configurée.
   const localPatterns = [
     'http://localhost:5173',
-    'http://localhost:5174',
     'http://127.0.0.1:5173',
-    'http://127.0.0.1:5174',
-    /^http:\/\/(192\.168|10\.0|172\.1[6-9]|172\.2[0-9]|172\.3[0-1])\.\d{1,3}\.\d{1,3}:(5173|5174)$/,
+    /^http:\/\/(192\.168|10\.0|172\.1[6-9]|172\.2[0-9]|172\.3[0-1])\.\d{1,3}\.\d{1,3}:5173$/,
   ];
 
   return localPatterns.some((pattern) => {

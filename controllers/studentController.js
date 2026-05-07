@@ -14,11 +14,6 @@ const {
   getSupervisorClassScope,
 } = require('../utils/supervisorScope');
 
-const toBoolean = (value) => value === true
-  || value === 'true'
-  || value === 1
-  || value === '1';
-
 const parseParentName = (parentName = '') => {
   const normalized = String(parentName || '').trim();
   if (!normalized) {
@@ -139,49 +134,6 @@ const compareMatricule = (a, b) => {
   return aa.raw.localeCompare(bb.raw, 'fr', { sensitivity: 'base' });
 };
 
-const parseClassOrder = (value) => {
-  if (value === undefined || value === null || value === '') {
-    return null;
-  }
-
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed)) {
-    const error = new Error('classOrder doit être un nombre.');
-    error.statusCode = 400;
-    throw error;
-  }
-
-  if (parsed < 1) {
-    const error = new Error('classOrder doit être supérieur ou égal à 1.');
-    error.statusCode = 400;
-    throw error;
-  }
-
-  return parsed;
-};
-
-const assertUniqueClassOrder = async (classeId, classOrder, excludeStudentId = null) => {
-  if (classOrder === null) {
-    return;
-  }
-
-  const filter = {
-    classe: classeId,
-    classOrder,
-  };
-
-  if (excludeStudentId) {
-    filter._id = { $ne: excludeStudentId };
-  }
-
-  const existing = await Student.findOne(filter).select('_id').lean();
-  if (existing) {
-    const error = new Error('classOrder déjà utilisé dans cette classe.');
-    error.statusCode = 400;
-    throw error;
-  }
-};
-
 /**
  * Calcul de classOrder pour insertion d'un nouvel élève dans une classe.
  * Ne réordonne pas les autres élèves.
@@ -218,7 +170,7 @@ const computeInsertionClassOrder = async (classeId, matricule, excludeStudentId 
   if (insertIndex === 0) {
     const next = existing[0];
     const nextOrder = Number(next.classOrder) || 1;
-    return nextOrder > 1 ? nextOrder - 1 : 1;
+    return nextOrder > 1 ? nextOrder - 1 : nextOrder / 2;
   }
 
   const prev = existing[insertIndex - 1];
@@ -229,10 +181,10 @@ const computeInsertionClassOrder = async (classeId, matricule, excludeStudentId 
 
   // Penser à garder original non trié : on n'affecte que le nouvel élève
   if (upper - lower > 1) {
-    return Math.max(1, (lower + upper) / 2);
+    return (lower + upper) / 2;
   }
 
-  return Math.max(1, lower + 0.5);
+  return lower + 0.5;
 };
 
 /**
@@ -257,51 +209,32 @@ const createStudent = asyncHandler(async (req, res) => {
     required: false,
   });
 
-  let user = null;
-  let student = null;
+  // Créer le compte utilisateur
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+    role: 'student',
+    phone,
+  });
 
-  try {
-    // Créer le compte utilisateur
-    user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password,
-      role: 'student',
-      phone,
-    });
+  // Déterminer classOrder pour préserver l’ordre import initial et insertion stable
+  const classOrder = await computeInsertionClassOrder(classe, matricule);
 
-    const requestedClassOrder = parseClassOrder(req.body.classOrder);
-
-    if (requestedClassOrder !== null) {
-      await assertUniqueClassOrder(classe, requestedClassOrder);
-    }
-
-    // Déterminer classOrder pour préserver l’ordre import initial et insertion stable
-    const classOrder = requestedClassOrder !== null
-      ? requestedClassOrder
-      : await computeInsertionClassOrder(classe, matricule);
-
-    // Créer le profil étudiant
-    student = await Student.create({
-      user: user._id,
-      matricule,
-      dateOfBirth,
-      gender,
-      address,
-      classe,
-      classOrder,
-      parentName,
-      parentPhone,
-      parentUser: parentUserId,
-      sportsExempt: toBoolean(req.body.sportsExempt),
-    });
-  } catch (error) {
-    if (user && !student) {
-      await User.findByIdAndDelete(user._id);
-    }
-    throw error;
-  }
+  // Créer le profil étudiant
+  const student = await Student.create({
+    user: user._id,
+    matricule,
+    dateOfBirth,
+    gender,
+    address,
+    classe,
+    classOrder,
+    parentName,
+    parentPhone,
+    parentUser: parentUserId,
+  });
 
   // Populer les données pour la réponse
   const populatedStudent = await Student.findById(student._id)
@@ -437,18 +370,6 @@ const updateStudent = asyncHandler(async (req, res) => {
 
   await ensureClassAccessibleForSupervisor(req, student.classe);
 
-  const hasClassOrderInput = Object.prototype.hasOwnProperty.call(studentData, 'classOrder');
-  const requestedClassOrder = parseClassOrder(studentData.classOrder);
-
-  if (hasClassOrderInput && requestedClassOrder !== null) {
-    const targetClasse = studentData.classe || student.classe;
-    await ensureClassAccessibleForSupervisor(req, targetClasse);
-    await assertUniqueClassOrder(targetClasse, requestedClassOrder, student._id);
-    studentData.classOrder = requestedClassOrder;
-  } else if (hasClassOrderInput) {
-    delete studentData.classOrder;
-  }
-
   if (parentEmail !== undefined || parentPassword !== undefined || studentData.parentName !== undefined || studentData.parentPhone !== undefined) {
     studentData.parentUser = await resolveParentUser({
       parentName: studentData.parentName !== undefined ? studentData.parentName : student.parentName,
@@ -458,10 +379,6 @@ const updateStudent = asyncHandler(async (req, res) => {
       currentParentUserId: student.parentUser,
       required: false,
     });
-  }
-
-  if (Object.prototype.hasOwnProperty.call(studentData, 'sportsExempt')) {
-    studentData.sportsExempt = toBoolean(studentData.sportsExempt);
   }
 
   // Mettre à jour les données utilisateur si fournies
@@ -483,9 +400,7 @@ const updateStudent = asyncHandler(async (req, res) => {
   const isClasseChanged = studentData.classe && String(studentData.classe) !== String(student.classe);
   const isMatriculeChanged = studentData.matricule && String(studentData.matricule).trim() !== String(student.matricule).trim();
 
-  const shouldAutoComputeOrder = !hasClassOrderInput || requestedClassOrder === null;
-
-  if (shouldAutoComputeOrder && (isClasseChanged || isMatriculeChanged)) {
+  if (isClasseChanged || isMatriculeChanged) {
     const targetClasse = isClasseChanged ? studentData.classe : student.classe;
     await ensureClassAccessibleForSupervisor(req, targetClasse);
     const targetMatricule = isMatriculeChanged ? studentData.matricule : student.matricule;
