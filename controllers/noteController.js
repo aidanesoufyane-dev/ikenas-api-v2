@@ -832,6 +832,18 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     }
   } else if (sheetPayload.type === 'controle_continue' && sheetPayload.exam) {
     sheet = await NoteSheet.findOne({ exam: sheetPayload.exam, isActive: true });
+  } else if (sheetPayload.type === 'autre' && sheetPayload.title) {
+    // Re-use existing sheet for same class/subject/semester/title to avoid duplicates
+    const dedupFilter = {
+      classe: sheetPayload.classe,
+      subject: sheetPayload.subject,
+      semester: normalizeSemesterValue(sheetPayload.semester),
+      title: sheetPayload.title,
+      type: 'autre',
+      isActive: true,
+    };
+    if (teacher) dedupFilter.teacher = teacher._id;
+    sheet = await NoteSheet.findOne(dedupFilter).sort({ createdAt: -1 });
   }
 
   const maxScore = 10;
@@ -1052,7 +1064,7 @@ const getMyResults = asyncHandler(async (req, res) => {
   }
 
   const totalEntries = await NoteEntry.countDocuments({ student: { $in: [studentObjectId, studentIdStr] } });
-  console.log(`[getMyResults] NoteEntry count for student=${student._id}: ${totalEntries}`);
+  console.log(`[getMyResults] student=${student._id} totalEntries=${totalEntries} queryStudentId=${studentId}`);
 
   const entries = await NoteEntry.find(filter)
     .populate({
