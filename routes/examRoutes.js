@@ -17,7 +17,7 @@ const {
 const { protect, roleCheck } = require('../middleware/auth');
 
 // Résultats de l'élève connecté
-router.get('/my-results', protect, roleCheck('student', 'parent', 'teacher'), getMyResults);
+router.get('/my-results', protect, roleCheck('student', 'parent'), getMyResults);
 router.get('/results-template', protect, roleCheck('admin', 'teacher'), getResultsTemplate);
 
 // CRUD examens

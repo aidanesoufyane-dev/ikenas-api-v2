@@ -10,6 +10,7 @@ const { asyncHandler } = require('../utils/helpers');
 const { sendNotification } = require('../utils/notify');
 const { buildResultPayload, computeResultStats, normalizeComponents } = require('../utils/gradeUtils');
 const { resolveActingStudent } = require('../utils/studentAccess');
+const { isPhysicalEducationSubject } = require('../utils/subjectUtils');
 
 const STUDENT_CLASS_ORDER_SORT = { classOrder: 1, createdAt: 1, _id: 1 };
 
@@ -46,11 +47,12 @@ const buildResultsResponse = async (examId, sort = { score: -1, updatedAt: -1 })
 const createExam = asyncHandler(async (req, res) => {
   const { title, description, classe, subject, date, startTime, endTime, room, maxScore, type, semester, componentsTemplate } = req.body;
 
+  await ensureSubjectBelongsToClass(subject, classe);
+
   let teacherId = req.body.teacher;
-  let teacher = null;
 
   if (req.user.role === 'teacher') {
-    teacher = await Teacher.findOne({ user: req.user.id });
+    const teacher = await Teacher.findOne({ user: req.user.id });
     if (!teacher) {
       return res.status(404).json({ success: false, message: 'Profil enseignant non trouvé.' });
     }
@@ -60,18 +62,6 @@ const createExam = asyncHandler(async (req, res) => {
       return res.status(403).json({ success: false, message: "Vous n'enseignez pas à cette classe." });
     }
     teacherId = teacher._id;
-  }
-
-  // Soft-check: allow if teacher has subject in their profile even if not formally linked to class
-  try {
-    await ensureSubjectBelongsToClass(subject, classe);
-  } catch (error) {
-    const teacherHasContext = teacher
-      && teacher.classes?.some((c) => c.toString() === String(classe))
-      && teacher.subjects?.some((s) => s.toString() === String(subject));
-    if (!teacherHasContext) {
-      throw error;
-    }
   }
 
   const exam = await Exam.create({
@@ -116,6 +106,7 @@ const createExam = asyncHandler(async (req, res) => {
  */
 const getExams = asyncHandler(async (req, res) => {
   const filter = { isActive: true };
+  let actingStudent = null;
 
   if (req.user.role === 'teacher') {
     const teacher = await Teacher.findOne({ user: req.user.id });
@@ -125,8 +116,8 @@ const getExams = asyncHandler(async (req, res) => {
     filter.teacher = teacher._id;
     if (req.query.classe) filter.classe = req.query.classe;
   } else if (req.user.role === 'student' || req.user.role === 'parent') {
-    const student = await resolveActingStudent(req);
-    filter.classe = student.classe;
+    actingStudent = await resolveActingStudent(req);
+    filter.classe = actingStudent.classe;
   } else {
     // Admin
     if (req.query.classe) filter.classe = req.query.classe;
@@ -140,12 +131,18 @@ const getExams = asyncHandler(async (req, res) => {
     filter.semester = req.query.semester;
   }
 
-  const exams = await Exam.find(filter)
+  let exams = await Exam.find(filter)
     .populate('classe', 'name')
     .populate('subject', 'name code')
     .populate({ path: 'teacher', populate: { path: 'user', select: 'firstName lastName' } })
     .populate('resultsCount')
     .sort({ date: 1, startTime: 1 });
+
+  if ((req.user.role === 'student' || req.user.role === 'parent') && actingStudent) {
+    if (actingStudent?.sportsExempt) {
+      exams = exams.filter((exam) => !isPhysicalEducationSubject(exam.subject));
+    }
+  }
 
   res.status(200).json({ success: true, data: exams });
 });
@@ -180,26 +177,16 @@ const updateExam = asyncHandler(async (req, res) => {
   }
 
   // Teacher can only edit their own exams
-  let updateTeacher = null;
   if (req.user.role === 'teacher') {
-    updateTeacher = await Teacher.findOne({ user: req.user.id });
-    if (!updateTeacher || exam.teacher.toString() !== updateTeacher._id.toString()) {
+    const teacher = await Teacher.findOne({ user: req.user.id });
+    if (!teacher || exam.teacher.toString() !== teacher._id.toString()) {
       return res.status(403).json({ success: false, message: "Vous ne pouvez modifier que vos propres examens." });
     }
   }
 
   const targetClass = req.body.classe || exam.classe.toString();
   const targetSubject = req.body.subject || exam.subject.toString();
-  try {
-    await ensureSubjectBelongsToClass(targetSubject, targetClass);
-  } catch (error) {
-    const teacherHasContext = updateTeacher
-      && updateTeacher.classes?.some((c) => c.toString() === String(targetClass))
-      && updateTeacher.subjects?.some((s) => s.toString() === String(targetSubject));
-    if (!teacherHasContext) {
-      throw error;
-    }
-  }
+  await ensureSubjectBelongsToClass(targetSubject, targetClass);
 
   if (req.body.componentsTemplate) {
     req.body.componentsTemplate = sanitizeExamComponents(req.body.componentsTemplate, req.body.maxScore || exam.maxScore);
@@ -266,54 +253,51 @@ const saveResults = asyncHandler(async (req, res) => {
     return res.status(400).json({ success: false, message: 'Données invalides.' });
   }
 
-  const studentsInClass = await Student.find({ classe: exam.classe }).select('_id user');
-  const allowedStudentIds = new Set(studentsInClass.map((student) => String(student._id)));
-  const userToStudentId = new Map(
-    studentsInClass.map((student) => [String(student.user || ''), String(student._id)])
-  );
+    const isSportSubject = isPhysicalEducationSubject(exam.subject);
+    let filteredResults = results;
 
-  const resolveStudentId = (value) => {
-    const raw = String(value || '').trim();
-    if (!raw) return null;
-    if (allowedStudentIds.has(raw)) return raw;
-    if (userToStudentId.has(raw)) return userToStudentId.get(raw);
-    return null;
-  };
+    if (isSportSubject && results.length > 0) {
+      const studentIds = results.map((result) => result.student);
+      const exemptStudents = await Student.find({
+        _id: { $in: studentIds },
+        sportsExempt: true,
+      }).select('_id');
 
-  const filteredResults = results
-    .map((result) => ({
-      ...result,
-      student: resolveStudentId(result.student),
-    }))
-    .filter((result) => result.student);
+      const exemptIds = new Set(exemptStudents.map((item) => String(item._id)));
+      filteredResults = results.filter((result) => !exemptIds.has(String(result.student)));
+    }
 
-  const normalizedResults = filteredResults.map((result) => {
-    const payload = buildResultPayload({
-      score: result.score,
-      maxScore: exam.maxScore,
-      components: result.components,
+    const normalizedResults = filteredResults.map((result) => {
+      const payload = buildResultPayload({
+        score: result.score,
+        maxScore: exam.maxScore,
+        components: result.components,
+      });
+
+      return {
+        student: result.student,
+        remarks: result.remarks || '',
+        ...payload,
+      };
     });
 
-    return {
-      student: result.student,
-      remarks: result.remarks || '',
-      ...payload,
-    };
-  });
+  const normalizedResultsByStudent = new Map(
+    normalizedResults.map((result) => [String(result.student), result])
+  );
 
   const ops = normalizedResults.map((r) => ({
     updateOne: {
       filter: { exam: exam._id, student: r.student },
       update: {
         $set: {
-          score: r.score ?? null,
-          maxScore: exam.maxScore,
-          semester: exam.semester || 'S1',
-          components: r.components || [],
-          hasComponents: r.hasComponents || false,
-          isComplete: r.isComplete ?? true,
-          completionRate: r.completionRate ?? 100,
-          remarks: r.remarks || '',
+          score: normalizedResultsByStudent.get(String(r.student))?.score ?? null,
+            maxScore: exam.maxScore,
+            semester: exam.semester || 'S1',
+          components: normalizedResultsByStudent.get(String(r.student))?.components || [],
+          hasComponents: normalizedResultsByStudent.get(String(r.student))?.hasComponents || false,
+          isComplete: normalizedResultsByStudent.get(String(r.student))?.isComplete ?? true,
+          completionRate: normalizedResultsByStudent.get(String(r.student))?.completionRate ?? 100,
+            remarks: r.remarks || '',
           gradedBy: req.user.id,
         },
       },
@@ -321,7 +305,9 @@ const saveResults = asyncHandler(async (req, res) => {
     },
   }));
 
-  await ExamResult.bulkWrite(ops);
+  if (ops.length > 0) {
+    await ExamResult.bulkWrite(ops);
+  }
 
   // Notifier chaque élève
   for (const r of normalizedResults) {
@@ -365,7 +351,14 @@ const getResultsTemplate = asyncHandler(async (req, res) => {
     });
   }
 
-  const studentQuery = { classe, isActive: true };
+  const subjectDoc = await Subject.findById(subject).select('name code').lean();
+  const isSportSubject = subjectDoc && isPhysicalEducationSubject(subjectDoc);
+
+  const studentQuery = {
+    classe,
+    isActive: true,
+    ...(isSportSubject ? { sportsExempt: { $ne: true } } : {}),
+  };
   const students = await Student.find(studentQuery)
     .populate('user', 'firstName lastName')
     .sort(STUDENT_CLASS_ORDER_SORT);
@@ -454,82 +447,29 @@ const getResults = asyncHandler(async (req, res) => {
  * @access  Private/Student
  */
 const getMyResults = asyncHandler(async (req, res) => {
-  let student = null;
-  const studentId =
-    req.query.studentId ||
-    req.headers['x-student-id'] ||
-    req.body?.studentId;
+  const student = await resolveActingStudent(req);
 
-  if (req.user?.role === 'teacher') {
-    if (!studentId) {
-      return res.status(400).json({ success: false, message: 'studentId requis.' });
-    }
-    student = await Student.findById(studentId).catch(() => null);
-    if (!student) {
-      return res.status(404).json({ success: false, message: 'Profil élève non trouvé.' });
-    }
-    const teacher = await Teacher.findOne({ user: req.user.id }).select('classes');
-    if (!teacher || !teacher.classes?.some((classId) => classId.toString() === String(student.classe))) {
-      return res.status(403).json({ success: false, message: 'Accès refusé.' });
-    }
-  } else {
-    try {
-      student = await resolveActingStudent(req);
-    } catch (_) {}
-
-    if (!student && studentId) {
-      student = await Student.findById(studentId).catch(() => null);
-    }
-
-    if (!student) {
-      return res.status(200).json({ success: true, data: [] });
-    }
-  }
-
-  // Match both ObjectId and string form (same pattern as noteController)
-  const mongoose = require('mongoose');
-  const studentObjectId = new mongoose.Types.ObjectId(String(student._id));
-  const studentIdStr = String(student._id);
-  const resultFilter = { student: { $in: [studentObjectId, studentIdStr] } };
+  const resultFilter = { student: student._id };
   if (req.query.semester) {
     resultFilter.semester = req.query.semester;
   }
 
-  const results = await ExamResult.find(resultFilter)
+  let results = await ExamResult.find(resultFilter)
     .populate({
       path: 'exam',
       populate: [
         { path: 'classe', select: 'name' },
-        { path: 'subject', select: 'name code coefficient' },
+        { path: 'subject', select: 'name code' },
         { path: 'teacher', populate: { path: 'user', select: 'firstName lastName' } },
       ],
     })
     .sort({ createdAt: -1 });
 
-  // Flatten to the same shape as noteController getMyResults so Flutter
-  // GradeModel.fromJson can parse both without special-casing.
-  const flat = results
-    .filter((r) => r.exam)
-    .map((r) => ({
-      _id: r._id,
-      score: r.score,
-      maxScore: r.maxScore ?? r.exam.maxScore ?? 20,
-      semester: r.semester,
-      components: r.components || [],
-      hasComponents: r.hasComponents || false,
-      isComplete: r.isComplete ?? true,
-      remarks: r.remarks || '',
-      type: 'controle_continue',
-      title: r.exam.title,
-      coefficient: r.exam.subject?.coefficient || r.exam.coefficient || 1,
-      subject: r.exam.subject,
-      classe: r.exam.classe,
-      teacher: r.exam.teacher,
-      exam: r.exam._id,
-      updatedAt: r.updatedAt,
-    }));
+  if (student?.sportsExempt) {
+    results = results.filter((item) => !isPhysicalEducationSubject(item.exam?.subject));
+  }
 
-  res.status(200).json({ success: true, data: flat });
+  res.status(200).json({ success: true, data: results });
 });
 
 module.exports = {

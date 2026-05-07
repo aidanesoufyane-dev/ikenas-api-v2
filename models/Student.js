@@ -38,6 +38,7 @@ const studentSchema = new mongoose.Schema(
     classOrder: {
       type: Number,
       default: null,
+      min: 1,
     },
     parentName: {
       type: String,
@@ -55,6 +56,10 @@ const studentSchema = new mongoose.Schema(
     enrollmentDate: {
       type: Date,
       default: Date.now,
+    },
+    sportsExempt: {
+      type: Boolean,
+      default: false,
     },
     transport: {
       status: {

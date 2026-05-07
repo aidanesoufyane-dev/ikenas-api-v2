@@ -10,20 +10,9 @@ const Subject = require('../models/Subject');
 const { asyncHandler } = require('../utils/helpers');
 const { sendNotification } = require('../utils/notify');
 const { resolveActingStudent } = require('../utils/studentAccess');
+const { isPhysicalEducationSubject } = require('../utils/subjectUtils');
 
 const PRESENT_LIKE_STATUSES = new Set(['present', 'without_uniform']);
-
-const normalizeText = (value) => String(value || '')
-  .normalize('NFD')
-  .replace(/[\u0300-\u036f]/g, '')
-  .toLowerCase();
-
-const isPhysicalEducationSubject = (subject) => {
-  const text = normalizeText([subject?.name, subject?.code].filter(Boolean).join(' '));
-  return text.includes('education physique')
-    || text.includes('physical education')
-    || text.includes('eps');
-};
 
 const isPresentLike = (status) => PRESENT_LIKE_STATUSES.has(status);
 
@@ -43,13 +32,16 @@ const ensureWithoutUniformAllowed = (subject, status) => {
 const createAttendance = asyncHandler(async (req, res) => {
   const { student, date, status, reason, classe, subject } = req.body;
   const subjectDoc = subject ? await Subject.findById(subject).select('name code') : null;
+  const isSportSubject = subjectDoc && isPhysicalEducationSubject(subjectDoc);
 
   ensureWithoutUniformAllowed(subjectDoc, status || 'absent');
+
+  let studentDoc = null;
 
   // Si c'est un prof, vérifier qu'il enseigne bien à cet élève
   if (req.user.role === 'teacher') {
     const teacher = await Teacher.findOne({ user: req.user.id });
-    const studentDoc = await Student.findById(student);
+    studentDoc = await Student.findById(student);
 
     if (!studentDoc) {
       return res.status(404).json({ success: false, message: 'Élève non trouvé.' });
@@ -63,6 +55,19 @@ const createAttendance = asyncHandler(async (req, res) => {
       return res.status(403).json({
         success: false,
         message: "Vous ne pouvez enregistrer l'absence que pour vos élèves.",
+      });
+    }
+  }
+
+  if (isSportSubject) {
+    if (!studentDoc) {
+      studentDoc = await Student.findById(student).select('sportsExempt');
+    }
+
+    if (studentDoc?.sportsExempt) {
+      return res.status(400).json({
+        success: false,
+        message: 'Élève dispensé de sport : présence non enregistrée pour cette matière.',
       });
     }
   }
@@ -277,6 +282,7 @@ const createBulkAttendance = asyncHandler(async (req, res) => {
   const subjectDoc = subject
     ? await Subject.findById(subject).select('name code')
     : scheduleDoc?.subject || null;
+  const isSportSubject = subjectDoc && isPhysicalEducationSubject(subjectDoc);
   if (absences.some((item) => item.status === 'without_uniform')) {
     ensureWithoutUniformAllowed(subjectDoc, 'without_uniform');
   }
@@ -300,13 +306,36 @@ const createBulkAttendance = asyncHandler(async (req, res) => {
 
   // Supprimer les anciennes absences de ces élèves pour cette date/classe/matière
   const studentIds = absences.map((a) => a.student);
+  let filteredAbsences = absences;
+  let skippedCount = 0;
+
+  if (isSportSubject && studentIds.length > 0) {
+    const exemptStudents = await Student.find({
+      _id: { $in: studentIds },
+      sportsExempt: true,
+    }).select('_id');
+
+    const exemptIds = new Set(exemptStudents.map((item) => String(item._id)));
+    filteredAbsences = absences.filter((item) => !exemptIds.has(String(item.student)));
+    skippedCount = absences.length - filteredAbsences.length;
+  }
+
+  if (filteredAbsences.length === 0) {
+    return res.status(200).json({
+      success: true,
+      data: [],
+      message: 'Aucun élève à enregistrer pour cette séance.',
+    });
+  }
+
+  const filteredStudentIds = filteredAbsences.map((a) => a.student);
   const dateStart = new Date(date);
   dateStart.setHours(0, 0, 0, 0);
   const dateEnd = new Date(date);
   dateEnd.setHours(23, 59, 59, 999);
 
   const dedupeFilter = {
-    student: { $in: studentIds },
+    student: { $in: filteredStudentIds },
     classe,
     date: { $gte: dateStart, $lte: dateEnd },
   };
@@ -319,7 +348,7 @@ const createBulkAttendance = asyncHandler(async (req, res) => {
 
   await Attendance.deleteMany(dedupeFilter);
 
-  const docs = absences.map((a) => ({
+  const docs = filteredAbsences.map((a) => ({
     student: a.student,
     date: new Date(date),
     status: a.status || 'present',
@@ -377,7 +406,7 @@ const createBulkAttendance = asyncHandler(async (req, res) => {
   res.status(201).json({
     success: true,
     data: populated,
-    message: `${docs.length} présence(s) enregistrée(s), dont ${nonPresent.length} absence(s)/retard(s)/excusé(s).`,
+    message: `${docs.length} présence(s) enregistrée(s), dont ${nonPresent.length} absence(s)/retard(s)/excusé(s).${skippedCount > 0 ? ` (${skippedCount} élève(s) dispensé(s) de sport ignoré(s).)` : ''}`,
   });
 });
 
@@ -404,7 +433,16 @@ const getDailyReport = asyncHandler(async (req, res) => {
   const dateEnd = new Date(date);
   dateEnd.setHours(23, 59, 59, 999);
 
-  const students = await Student.find({ classe })
+  let sportSubjectDoc = null;
+  const excludeSportExempt = subject
+    ? ((sportSubjectDoc = await Subject.findById(subject).select('name code'))
+      && isPhysicalEducationSubject(sportSubjectDoc))
+    : false;
+
+  const students = await Student.find({
+    classe,
+    ...(excludeSportExempt ? { sportsExempt: { $ne: true } } : {}),
+  })
     .populate('user', 'firstName lastName')
     .sort({ classOrder: 1, createdAt: 1 });
 
@@ -415,15 +453,23 @@ const getDailyReport = asyncHandler(async (req, res) => {
     attendanceFilter.subject = subject;
 
     const subjectAttendances = await Attendance.find(attendanceFilter)
-      .populate({ path: 'student', populate: { path: 'user', select: 'firstName lastName' } })
+      .populate({
+        path: 'student',
+        select: 'sportsExempt',
+        populate: { path: 'user', select: 'firstName lastName' },
+      })
       .populate('recordedBy', 'firstName lastName')
       .populate('subject', 'name code')
       .populate('schedule', 'startTime endTime day');
 
-    const attendanceRecordedToday = subjectAttendances.length > 0;
+    const filteredAttendances = excludeSportExempt
+      ? subjectAttendances.filter((item) => !item.student?.sportsExempt)
+      : subjectAttendances;
+
+    const attendanceRecordedToday = filteredAttendances.length > 0;
 
     const report = students.map((s) => {
-      const records = subjectAttendances.filter(
+      const records = filteredAttendances.filter(
         (a) => a.student?._id?.toString() === s._id.toString()
       );
 
@@ -678,22 +724,7 @@ const approveBulk = asyncHandler(async (req, res) => {
  * @access  Private/Student
  */
 const getMyAttendances = asyncHandler(async (req, res) => {
-  let student = null;
-  try {
-    student = await resolveActingStudent(req);
-  } catch (_) {}
-
-  if (!student) {
-    const studentId =
-      req.query.studentId || req.headers['x-student-id'] || req.body?.studentId;
-    if (studentId) {
-      student = await Student.findById(studentId).catch(() => null);
-    }
-  }
-
-  if (!student) {
-    return res.status(200).json({ success: true, data: [], summary: { total: 0, present: 0, absent: 0, late: 0, excused: 0 } });
-  }
+  const student = await resolveActingStudent(req);
 
   const filter = {
     student: student._id,
@@ -710,11 +741,15 @@ const getMyAttendances = asyncHandler(async (req, res) => {
     }
   }
 
-  const records = await Attendance.find(filter)
+  let records = await Attendance.find(filter)
     .populate('classe', 'name')
     .populate('subject', 'name code')
     .populate('recordedBy', 'firstName lastName')
     .sort('-date');
+
+  if (student?.sportsExempt) {
+    records = records.filter((record) => !isPhysicalEducationSubject(record.subject));
+  }
 
   const summary = {
     total: records.length,

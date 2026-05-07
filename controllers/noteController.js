@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const NoteSheet = require('../models/NoteSheet');
 const NoteEntry = require('../models/NoteEntry');
 const ExcelJS = require('exceljs');
@@ -12,6 +11,7 @@ const { asyncHandler } = require('../utils/helpers');
 const { buildResultPayload, computeResultStats, normalizeComponents } = require('../utils/gradeUtils');
 const { sendNotification } = require('../utils/notify');
 const { resolveActingStudent } = require('../utils/studentAccess');
+const { isPhysicalEducationSubject } = require('../utils/subjectUtils');
 const {
   ensureClassAccessibleForSupervisor,
   getSupervisorClassScope,
@@ -25,7 +25,6 @@ const NOTES_EXCEL_ANALYSIS = (() => {
   }
 })();
 
-const SUBJECTS_WITHOUT_COMPONENTS = new Set(['AS', 'ANG', 'EA', 'EI', 'EPS', 'INFO', 'MATH']);
 const REMOVE_BIRTHDATE_COMPONENT_FOR = new Set(['AR', 'HG', 'FRA']);
 const BIRTHDATE_COMPONENT_NAME = 'تاريخ الإزدياد';
 const ALLOWED_DEVOIR_TITLES = ['devoir1', 'devoir2', 'devoir3', 'devoir4'];
@@ -210,10 +209,6 @@ const applySubjectComponentRules = ({ subjectCode, classInfo, components }) => {
   const code = String(subjectCode || '').toUpperCase();
   const level = extractLevelTag(classInfo);
 
-  if (SUBJECTS_WITHOUT_COMPONENTS.has(code)) {
-    return [];
-  }
-
   if (code === 'FRA') {
     const levelComponents = FRA_COMPONENTS_BY_LEVEL[level] || [];
     if (levelComponents.length > 0) {
@@ -226,10 +221,6 @@ const applySubjectComponentRules = ({ subjectCode, classInfo, components }) => {
     if (!name) return false;
 
     if (REMOVE_BIRTHDATE_COMPONENT_FOR.has(code) && name === BIRTHDATE_COMPONENT_NAME) {
-      return false;
-    }
-
-    if (SUBJECTS_WITHOUT_COMPONENTS.has(code) && (name === 'B' || name === 'M')) {
       return false;
     }
 
@@ -643,13 +634,19 @@ const getTemplate = asyncHandler(async (req, res) => {
 
   await ensureSubjectBelongsToClass(subject, classe);
 
+  const subjectDoc = await Subject.findById(subject).select('name code').lean();
+  const isSportSubject = subjectDoc && isPhysicalEducationSubject(subjectDoc);
+
   let teacher = null;
   if (req.user.role === 'teacher') {
     teacher = await getTeacherProfile(req.user.id);
     ensureTeacherCanAccessContext({ teacher, classe, subject });
   }
 
-  const students = await Student.find({ classe })
+  const students = await Student.find({
+    classe,
+    ...(isSportSubject ? { sportsExempt: { $ne: true } } : {}),
+  })
     .populate('user', 'firstName lastName')
     .sort(STUDENT_CLASS_ORDER_SORT);
 
@@ -782,6 +779,11 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     sheetPayload.title = normalizedTitle;
   }
 
+  await ensureSubjectBelongsToClass(sheetPayload.subject, sheetPayload.classe);
+
+  const sheetSubjectDoc = await Subject.findById(sheetPayload.subject).select('name code').lean();
+  const isSportSubject = sheetSubjectDoc && isPhysicalEducationSubject(sheetSubjectDoc);
+
   let teacher = null;
   if (req.user.role === 'teacher') {
     teacher = await getTeacherProfile(req.user.id);
@@ -790,18 +792,6 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       classe: sheetPayload.classe,
       subject: sheetPayload.subject,
     });
-  }
-
-  try {
-    await ensureSubjectBelongsToClass(sheetPayload.subject, sheetPayload.classe);
-  } catch (error) {
-    const teacherHasContext = teacher
-      && teacher.classes?.some((classId) => classId.toString() === String(sheetPayload.classe))
-      && teacher.subjects?.some((subjectId) => subjectId.toString() === String(sheetPayload.subject));
-
-    if (!teacherHasContext) {
-      throw error;
-    }
   }
 
   let linkedExam = null;
@@ -832,18 +822,6 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     }
   } else if (sheetPayload.type === 'controle_continue' && sheetPayload.exam) {
     sheet = await NoteSheet.findOne({ exam: sheetPayload.exam, isActive: true });
-  } else if (sheetPayload.type === 'autre' && sheetPayload.title) {
-    // Re-use existing sheet for same class/subject/semester/title to avoid duplicates
-    const dedupFilter = {
-      classe: sheetPayload.classe,
-      subject: sheetPayload.subject,
-      semester: normalizeSemesterValue(sheetPayload.semester),
-      title: sheetPayload.title,
-      type: 'autre',
-      isActive: true,
-    };
-    if (teacher) dedupFilter.teacher = teacher._id;
-    sheet = await NoteSheet.findOne(dedupFilter).sort({ createdAt: -1 });
   }
 
   const maxScore = 10;
@@ -864,8 +842,6 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       coefficient: Number(sheetPayload.coefficient || 1) || 1,
       maxScore,
       componentsTemplate,
-      visible: sheetPayload.visible !== undefined ? sheetPayload.visible : true,
-      isActive: sheetPayload.isActive !== undefined ? sheetPayload.isActive : true,
       createdBy: req.user.id,
     });
   } else {
@@ -878,15 +854,6 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     sheet.coefficient = Number(sheetPayload.coefficient || sheet.coefficient || 1) || 1;
     sheet.maxScore = maxScore;
     sheet.componentsTemplate = componentsTemplate;
-    if (sheetPayload.visible !== undefined) {
-      sheet.visible = sheetPayload.visible;
-    } else if (sheet.visible === false) {
-      // Default to visible when saving new grades unless explicitly hidden.
-      sheet.visible = true;
-    }
-    if (sheetPayload.isActive !== undefined) {
-      sheet.isActive = sheetPayload.isActive;
-    }
     if (teacher) {
       sheet.teacher = teacher._id;
     }
@@ -897,33 +864,22 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     return res.status(400).json({ success: false, message: 'Données invalides.' });
   }
 
-  const studentsInClass = await Student.find({ classe: sheet.classe }).select('_id user');
+  const studentsInClass = await Student.find({ classe: sheet.classe })
+    .select('_id sportsExempt')
+    .lean();
   const allowedStudentIds = new Set(studentsInClass.map((student) => String(student._id)));
-  const userToStudentId = new Map(
-    studentsInClass.map((student) => [String(student.user || ''), String(student._id)])
+  const exemptIds = new Set(
+    studentsInClass
+      .filter((student) => student.sportsExempt)
+      .map((student) => String(student._id))
   );
 
-  const resolveStudentId = (value) => {
-    const raw = String(value || '').trim();
-    if (!raw) return null;
-    if (allowedStudentIds.has(raw)) return raw;
-    if (userToStudentId.has(raw)) return userToStudentId.get(raw);
-    return null;
-  };
-
-  const filteredResults = results
-    .map((result) => ({
-      ...result,
-      student: resolveStudentId(result.student),
-    }))
-    .filter((result) => result.student);
-
-  console.log(`[saveSheetResults] classe=${sheet.classe} studentsInClass=${studentsInClass.length} incomingResults=${results.length} filteredResults=${filteredResults.length}`);
-  if (filteredResults.length === 0 && results.length > 0) {
-    console.log('[saveSheetResults] MISMATCH — allowedIds:', [...allowedStudentIds].slice(0, 5));
-    console.log('[saveSheetResults] MISMATCH — sentIds:', results.slice(0, 5).map(r => String(r.student)));
-  }
-
+  const filteredResults = results.filter((result) => {
+    const studentId = String(result.student);
+    if (!allowedStudentIds.has(studentId)) return false;
+    if (isSportSubject && exemptIds.has(studentId)) return false;
+    return true;
+  });
   const normalized = filteredResults.map((result) => {
     const payload = buildResultPayload({
       score: result.score,
@@ -940,26 +896,32 @@ const saveSheetResults = asyncHandler(async (req, res) => {
 
   const resultByStudent = new Map(normalized.map((item) => [String(item.student), item]));
 
-  const toObjectId = (val) => {
-    try { return new mongoose.Types.ObjectId(String(val)); } catch (_) { return val; }
-  };
+  const effectiveSchoolId = req.effectiveSchoolId ? String(req.effectiveSchoolId) : null;
 
   const ops = normalized.map((item) => ({
     updateOne: {
-      filter: { sheet: sheet._id, student: toObjectId(item.student) },
-      update: {
-        $set: {
-          score: resultByStudent.get(String(item.student))?.score ?? null,
-          maxScore: sheet.maxScore,
-          semester: sheet.semester,
-          components: resultByStudent.get(String(item.student))?.components || [],
-          hasComponents: resultByStudent.get(String(item.student))?.hasComponents || false,
-          isComplete: resultByStudent.get(String(item.student))?.isComplete ?? true,
-          completionRate: resultByStudent.get(String(item.student))?.completionRate ?? 100,
-          remarks: item.remarks || '',
-          gradedBy: req.user.id,
-        },
-      },
+      filter: { sheet: sheet._id, student: item.student },
+      update: (() => {
+        const update = {
+          $set: {
+            score: resultByStudent.get(String(item.student))?.score ?? null,
+            maxScore: sheet.maxScore,
+            semester: sheet.semester,
+            components: resultByStudent.get(String(item.student))?.components || [],
+            hasComponents: resultByStudent.get(String(item.student))?.hasComponents || false,
+            isComplete: resultByStudent.get(String(item.student))?.isComplete ?? true,
+            completionRate: resultByStudent.get(String(item.student))?.completionRate ?? 100,
+            remarks: item.remarks || '',
+            gradedBy: req.user.id,
+          },
+        };
+
+        if (effectiveSchoolId) {
+          update.$setOnInsert = { school: effectiveSchoolId };
+        }
+
+        return update;
+      })(),
       upsert: true,
     },
   }));
@@ -1007,64 +969,16 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       stats,
     },
     message: `${normalized.length} note(s) enregistrée(s).`,
-    _debug: {
-      studentsInClass: studentsInClass.length,
-      incomingResults: results.length,
-      filteredResults: filteredResults.length,
-      savedEntries: savedEntries.length,
-      classeId: String(sheet.classe),
-      sheetId: String(sheet._id),
-    },
   });
 });
 
 const getMyResults = asyncHandler(async (req, res) => {
-  let student = null;
-  const studentId =
-    req.query.studentId ||
-    req.headers['x-student-id'] ||
-    req.body?.studentId;
+  const student = await resolveActingStudent(req);
 
-  if (req.user?.role === 'teacher') {
-    if (!studentId) {
-      return res.status(400).json({ success: false, message: 'studentId requis.' });
-    }
-    student = await Student.findById(studentId).catch(() => null);
-    if (!student) {
-      return res.status(404).json({ success: false, message: 'Profil élève non trouvé.' });
-    }
-    const teacher = await getTeacherProfile(req.user.id);
-    const classAllowed = teacher.classes.some((classId) => classId.toString() === String(student.classe));
-    if (!classAllowed) {
-      return res.status(403).json({ success: false, message: 'Accès refusé.' });
-    }
-  } else {
-    try {
-      student = await resolveActingStudent(req);
-    } catch (_) {}
-
-    // Fallback: if parentUser link is missing, find the student by the provided ID directly
-    if (!student && studentId) {
-      student = await Student.findById(studentId).catch(() => null);
-    }
-
-    if (!student) {
-      return res.status(200).json({ success: true, data: [], summary: {} });
-    }
-  }
-
-  const studentObjectId = new mongoose.Types.ObjectId(String(student._id));
-  const studentIdStr = String(student._id);
-  console.log(`[getMyResults] role=${req.user.role} student=${student._id} queryStudentId=${studentId}`);
-
-  // Match both ObjectId and string forms in case old entries were saved without casting
-  const filter = { student: { $in: [studentObjectId, studentIdStr] } };
+  const filter = { student: student._id };
   if (req.query.semester) {
     filter.semester = req.query.semester;
   }
-
-  const totalEntries = await NoteEntry.countDocuments({ student: { $in: [studentObjectId, studentIdStr] } });
-  console.log(`[getMyResults] student=${student._id} totalEntries=${totalEntries} queryStudentId=${studentId}`);
 
   const entries = await NoteEntry.find(filter)
     .populate({
@@ -1078,7 +992,7 @@ const getMyResults = asyncHandler(async (req, res) => {
     })
     .sort({ createdAt: -1 });
 
-  const results = entries
+  let results = entries
     .filter((entry) => entry.sheet && entry.sheet.isActive !== false && entry.sheet.visible !== false)
     .map((entry) => ({
       _id: entry._id,
@@ -1096,6 +1010,10 @@ const getMyResults = asyncHandler(async (req, res) => {
       exam: entry.sheet.exam,
       updatedAt: entry.updatedAt,
     }));
+
+  if (student?.sportsExempt) {
+    results = results.filter((result) => !isPhysicalEducationSubject(result.subject));
+  }
 
   const summary = buildStudentSummaries(results);
 
@@ -1151,6 +1069,8 @@ const getClassRanking = asyncHandler(async (req, res) => {
     }
   }
 
+  const isSportSubject = subjectInfo && isPhysicalEducationSubject(subjectInfo);
+
   if (selectedComponentKey && !subject) {
     return res.status(400).json({
       success: false,
@@ -1194,7 +1114,7 @@ const getClassRanking = asyncHandler(async (req, res) => {
     })
     .populate({
       path: 'student',
-      select: '_id gender',
+      select: '_id gender sportsExempt',
       populate: { path: 'user', select: 'firstName lastName avatar' },
     });
 
@@ -1204,6 +1124,7 @@ const getClassRanking = asyncHandler(async (req, res) => {
   entries.forEach((entry) => {
     if (!entry?.sheet?.isActive) return;
     if (!entry.student || !entry.student.user) return;
+    if (isSportSubject && entry.student?.sportsExempt) return;
 
     const subjectId = String(entry.sheet.subject?._id || 'unknown');
 
@@ -1567,11 +1488,20 @@ const reorderComponentsTemplate = asyncHandler(async (req, res) => {
       ? await NoteEntry.find({ sheet: existingSheet._id }).select('student components score')
       : [];
 
+    const resolvedComponents = (existingSheet?.components && existingSheet.components.length > 0)
+      ? existingSheet.components
+      : components;
+
+    // Disable cache to ensure fresh data is always fetched
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     res.status(200).json({
       success: true,
       data: {
         students,
-        components,
+        components: resolvedComponents,
         existingSheetId: existingSheet?._id || null,
         existingEntries,
         sheetVisible: existingSheet?.visible !== false,
@@ -1694,6 +1624,8 @@ const reorderComponentsTemplate = asyncHandler(async (req, res) => {
       await sheet.save();
     }
 
+    const effectiveSchoolId = req.effectiveSchoolId ? String(req.effectiveSchoolId) : null;
+
     const studentsInClass = await Student.find({ classe }).select('_id');
     const allowedStudentIds = new Set(studentsInClass.map((s) => String(s._id)));
     const filteredResults = results.filter((r) => allowedStudentIds.has(String(r.student)));
@@ -1716,10 +1648,21 @@ const reorderComponentsTemplate = asyncHandler(async (req, res) => {
         }
       }
 
+      const entryFilter = { sheet: sheet._id, student: result.student };
+      const entryUpdate = {
+        $set: { components: result.components || [], score: generalScore, semester },
+      };
+
+      if (effectiveSchoolId) {
+        entryFilter.school = effectiveSchoolId;
+        entryUpdate.$set.school = effectiveSchoolId;
+        entryUpdate.$setOnInsert = { school: effectiveSchoolId };
+      }
+
       return {
         updateOne: {
-          filter: { sheet: sheet._id, student: result.student },
-          update: { $set: { components: result.components || [], score: generalScore, semester } },
+          filter: entryFilter,
+          update: entryUpdate,
           upsert: true,
         },
       };
@@ -1727,6 +1670,13 @@ const reorderComponentsTemplate = asyncHandler(async (req, res) => {
 
     if (ops.length > 0) {
       await NoteEntry.bulkWrite(ops);
+    }
+
+    if (effectiveSchoolId) {
+      await NoteEntry.updateMany(
+        { sheet: sheet._id, school: { $exists: false } },
+        { $set: { school: effectiveSchoolId } }
+      );
     }
 
     const savedEntries = await NoteEntry.find({ sheet: sheet._id })
@@ -1860,7 +1810,7 @@ const getResults = asyncHandler(async (req, res) => {
           lastName: student.user?.lastName || '',
         },
         components: entry?.components || [],
-        score: entry?.score || null,
+        score: entry?.score ?? null,
       };
     });
 
