@@ -991,6 +991,14 @@ const saveSheetResults = asyncHandler(async (req, res) => {
       stats,
     },
     message: `${normalized.length} note(s) enregistrée(s).`,
+    _debug: {
+      studentsInClass: studentsInClass.length,
+      incomingResults: results.length,
+      filteredResults: filteredResults.length,
+      savedEntries: savedEntries.length,
+      classeId: String(sheet.classe),
+      sheetId: String(sheet._id),
+    },
   });
 });
 
