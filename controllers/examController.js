@@ -465,7 +465,11 @@ const getMyResults = asyncHandler(async (req, res) => {
     }
   }
 
-  const resultFilter = { student: student._id };
+  // Match both ObjectId and string form (same pattern as noteController)
+  const mongoose = require('mongoose');
+  const studentObjectId = new mongoose.Types.ObjectId(String(student._id));
+  const studentIdStr = String(student._id);
+  const resultFilter = { student: { $in: [studentObjectId, studentIdStr] } };
   if (req.query.semester) {
     resultFilter.semester = req.query.semester;
   }
@@ -475,13 +479,36 @@ const getMyResults = asyncHandler(async (req, res) => {
       path: 'exam',
       populate: [
         { path: 'classe', select: 'name' },
-        { path: 'subject', select: 'name code' },
+        { path: 'subject', select: 'name code coefficient' },
         { path: 'teacher', populate: { path: 'user', select: 'firstName lastName' } },
       ],
     })
     .sort({ createdAt: -1 });
 
-  res.status(200).json({ success: true, data: results });
+  // Flatten to the same shape as noteController getMyResults so Flutter
+  // GradeModel.fromJson can parse both without special-casing.
+  const flat = results
+    .filter((r) => r.exam)
+    .map((r) => ({
+      _id: r._id,
+      score: r.score,
+      maxScore: r.maxScore ?? r.exam.maxScore ?? 20,
+      semester: r.semester,
+      components: r.components || [],
+      hasComponents: r.hasComponents || false,
+      isComplete: r.isComplete ?? true,
+      remarks: r.remarks || '',
+      type: 'controle_continue',
+      title: r.exam.title,
+      coefficient: r.exam.subject?.coefficient || r.exam.coefficient || 1,
+      subject: r.exam.subject,
+      classe: r.exam.classe,
+      teacher: r.exam.teacher,
+      exam: r.exam._id,
+      updatedAt: r.updatedAt,
+    }));
+
+  res.status(200).json({ success: true, data: flat });
 });
 
 module.exports = {
