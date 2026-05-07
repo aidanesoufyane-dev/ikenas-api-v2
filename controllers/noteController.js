@@ -907,6 +907,10 @@ const saveSheetResults = asyncHandler(async (req, res) => {
     .filter((result) => result.student);
 
   console.log(`[saveSheetResults] classe=${sheet.classe} studentsInClass=${studentsInClass.length} incomingResults=${results.length} filteredResults=${filteredResults.length}`);
+  if (filteredResults.length === 0 && results.length > 0) {
+    console.log('[saveSheetResults] MISMATCH — allowedIds:', [...allowedStudentIds].slice(0, 5));
+    console.log('[saveSheetResults] MISMATCH — sentIds:', results.slice(0, 5).map(r => String(r.student)));
+  }
 
   const normalized = filteredResults.map((result) => {
     const payload = buildResultPayload({
