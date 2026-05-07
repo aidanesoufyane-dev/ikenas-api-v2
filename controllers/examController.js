@@ -46,12 +46,11 @@ const buildResultsResponse = async (examId, sort = { score: -1, updatedAt: -1 })
 const createExam = asyncHandler(async (req, res) => {
   const { title, description, classe, subject, date, startTime, endTime, room, maxScore, type, semester, componentsTemplate } = req.body;
 
-  await ensureSubjectBelongsToClass(subject, classe);
-
   let teacherId = req.body.teacher;
+  let teacher = null;
 
   if (req.user.role === 'teacher') {
-    const teacher = await Teacher.findOne({ user: req.user.id });
+    teacher = await Teacher.findOne({ user: req.user.id });
     if (!teacher) {
       return res.status(404).json({ success: false, message: 'Profil enseignant non trouvé.' });
     }
@@ -61,6 +60,18 @@ const createExam = asyncHandler(async (req, res) => {
       return res.status(403).json({ success: false, message: "Vous n'enseignez pas à cette classe." });
     }
     teacherId = teacher._id;
+  }
+
+  // Soft-check: allow if teacher has subject in their profile even if not formally linked to class
+  try {
+    await ensureSubjectBelongsToClass(subject, classe);
+  } catch (error) {
+    const teacherHasContext = teacher
+      && teacher.classes?.some((c) => c.toString() === String(classe))
+      && teacher.subjects?.some((s) => s.toString() === String(subject));
+    if (!teacherHasContext) {
+      throw error;
+    }
   }
 
   const exam = await Exam.create({
@@ -169,16 +180,26 @@ const updateExam = asyncHandler(async (req, res) => {
   }
 
   // Teacher can only edit their own exams
+  let updateTeacher = null;
   if (req.user.role === 'teacher') {
-    const teacher = await Teacher.findOne({ user: req.user.id });
-    if (!teacher || exam.teacher.toString() !== teacher._id.toString()) {
+    updateTeacher = await Teacher.findOne({ user: req.user.id });
+    if (!updateTeacher || exam.teacher.toString() !== updateTeacher._id.toString()) {
       return res.status(403).json({ success: false, message: "Vous ne pouvez modifier que vos propres examens." });
     }
   }
 
   const targetClass = req.body.classe || exam.classe.toString();
   const targetSubject = req.body.subject || exam.subject.toString();
-  await ensureSubjectBelongsToClass(targetSubject, targetClass);
+  try {
+    await ensureSubjectBelongsToClass(targetSubject, targetClass);
+  } catch (error) {
+    const teacherHasContext = updateTeacher
+      && updateTeacher.classes?.some((c) => c.toString() === String(targetClass))
+      && updateTeacher.subjects?.some((s) => s.toString() === String(targetSubject));
+    if (!teacherHasContext) {
+      throw error;
+    }
+  }
 
   if (req.body.componentsTemplate) {
     req.body.componentsTemplate = sanitizeExamComponents(req.body.componentsTemplate, req.body.maxScore || exam.maxScore);
